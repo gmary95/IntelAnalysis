@@ -73,15 +73,9 @@ class ViewController: NSViewController {
                 selection.append(item: item)
             }
             
-            representChart(timeSeries: arrayOfTimeSeries, regresion: nil, chart: timeSeriesRepresentationChart)
-            
             timeSeriesTabel.reloadData()
             
-            let d = Int(dText.title)
-            let split = SplineHelper(P: arrayOfTimeSeries, d: d ?? 4)
-            for i in 0 ..< arrayOfTimeSeries.count {
-                arrayOfSmooth.append(split.calcZ(t: i + 1))
-            }
+        representChart(timeSeries: arrayOfTimeSeries, regresion: nil, chart: timeSeriesRepresentationChart)
             
         } catch {
             _ = AlertHelper().dialogCancel(question: "Sopmething went wrong!", text: "You choose incorect file or choose noone.")
@@ -89,7 +83,7 @@ class ViewController: NSViewController {
     }
     
     func representChart(timeSeries: Array<Double>, regresion: Array<Double>?, chart: LineChartView){
-        let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x + 6), y: y) }
         
         let data = LineChartData()
         let dataSet = LineChartDataSet(values: series, label: "Current time series")
@@ -100,10 +94,11 @@ class ViewController: NSViewController {
         if let reg = regresion {
             let regresionSet = reg.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
             
-            let dataSetRegresion = LineChartDataSet(values: regresionSet, label: "Linear regresion")
+            let dataSetRegresion = LineChartDataSet(values: regresionSet, label: "b-spline")
             dataSetRegresion.colors = [NSUIColor.red]
             dataSetRegresion.valueColors = [NSUIColor.clear]
             dataSetRegresion.drawCirclesEnabled = false
+            dataSetRegresion.mode = .cubicBezier
             data.addDataSet(dataSetRegresion)
         }
         
@@ -121,6 +116,28 @@ class ViewController: NSViewController {
         return array
     }
     
+    @IBAction func startProccess(_ sender: Any) {
+        let d: Int = Int(dText.title) ?? 4
+        var pArr:[Double] = []
+        let tmp = 6
+        let count: Int = Int(ceil(Double(arrayOfTimeSeries.count) / Double(tmp)))
+        for i in 0 ..< count {
+            pArr.append(arrayOfTimeSeries[tmp * i])
+        }
+        let split = SplineHelper(P: pArr, n: arrayOfTimeSeries.count, d: d)
+        var tArray: [Double] = []
+        let step = 1.0 / Double(tmp)
+        for i in 0 ..< arrayOfTimeSeries.count {
+            tArray.append(Double(i + 1) * step)
+        }
+        arrayOfSmooth = []
+        for i in 0 ..< tArray.count {
+            arrayOfSmooth.append(split.calcZ(t: tArray[i]))
+        }
+        timeSeriesTabel.reloadData()
+        
+        representChart(timeSeries: arrayOfTimeSeries, regresion: arrayOfSmooth, chart: timeSeriesRepresentationChart)
+    }
     
 }
 
@@ -166,8 +183,10 @@ extension ViewController: NSTableViewDelegate {
                 text = "\(arrayOfTimeSeries[row].rounded(toPlaces: 6))"
                 cellIdentifier = CellIdentifiersSelectionTable.ValueCell
             } else if tableColumn == tableView.tableColumns[2] {
-                text = "\(arrayOfSmooth[row].rounded(toPlaces: 6))"
-                cellIdentifier = CellIdentifiersSelectionTable.RegressionCell
+                if arrayOfSmooth.count > 0 {
+                    text = "\(arrayOfSmooth[row].rounded(toPlaces: 6))"
+                    cellIdentifier = CellIdentifiersSelectionTable.RegressionCell
+                }
             }
             
             if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: nil) as? NSTableCellView {
