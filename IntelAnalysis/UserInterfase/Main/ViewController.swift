@@ -46,6 +46,7 @@ class ViewController: NSViewController {
                 filename_field = path
                 arrayOfTimeSeries = []
                 arrayOfName = []
+                arrayOfSmooth = []
                 openAndRead(filePath: result!)
             }
         } else {
@@ -83,7 +84,7 @@ class ViewController: NSViewController {
     }
     
     func representChart(timeSeries: Array<Double>, regresion: Array<Double>?, chart: LineChartView){
-        let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x + 6), y: y) }
+        let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         
         let data = LineChartData()
         let dataSet = LineChartDataSet(values: series, label: "Current time series")
@@ -117,12 +118,16 @@ class ViewController: NSViewController {
     }
     
     @IBAction func startProccess(_ sender: Any) {
-        let d: Int = Int(dText.title) ?? 4
+        let tmp: Int = Int(dText.title) ?? 6
         var pArr:[Double] = []
-        let tmp = 6
-        let count: Int = Int(ceil(Double(arrayOfTimeSeries.count) / Double(tmp)))
+        let d = tmp
+        let count: Int = arrayOfTimeSeries.count / tmp
         for i in 0 ..< count {
             pArr.append(arrayOfTimeSeries[tmp * i])
+        }
+        for _ in 0 ..< tmp - 1 {
+//        if tmp * count < arrayOfTimeSeries.count {
+            pArr.append(arrayOfTimeSeries.last!)
         }
         let split = SplineHelper(P: pArr, n: arrayOfTimeSeries.count, d: d)
         var tArray: [Double] = []

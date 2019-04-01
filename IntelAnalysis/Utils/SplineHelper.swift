@@ -32,8 +32,8 @@ class SplineHelper {
         var leftLine: Int
         
         arraySize = count
-        rightLine = arraySize - d + 2
-        leftLine = d - 2
+        rightLine = arraySize - d + 1
+        leftLine = d - 1
         
         U[0] = 0
         for i in 1 ..< arraySize {
@@ -58,7 +58,7 @@ class SplineHelper {
 }
     
     private func calcB(i: Int, k: Int,  u: [Double], t: Double) -> Double {
-        if k == 1 {
+        if k == 0 {
             if ((u[i] <= t) && (t < u[i+1])) {
                 return 1.0
             } else {
@@ -66,17 +66,17 @@ class SplineHelper {
             }
         } else {
             var memb1, memb2: Double
-            if(u[i + k - 1]==u[i]) {
+            if(u[i + k]==u[i]) {
                 memb1 = 0
             } else {
                 let b = calcB(i: i, k: k - 1, u: u, t: t)
-                memb1 = ((t - u[i]) / (u[i+k - 1] - u[i])) * b
+                memb1 = ((t - u[i]) / (u[i+k] - u[i])) * b
             }
-            if (u[i+k] == u[i+1]) {
+            if (u[i+k + 1] == u[i+1]) {
                 memb2 = 0
             } else {
                 let b = calcB(i: i + 1, k: k - 1, u: u, t: t)
-                memb2 = ((u[i+k] - t) / (u[i+k] - u[i+1])) * b
+                memb2 = ((u[i+k + 1] - t) / (u[i+k + 1] - u[i+1])) * b
             }
             return memb1 + memb2
         }
@@ -121,9 +121,10 @@ class SplineHelper {
     
     func calcZ(t: Double) -> Double {
         var result = 0.0
-        for i in 1 ... P.count {
+//        P.append(P.last!)
+        for i in 0 ..< P.count {
             let b = calcB(i: i, k: d, u: U, t: t)
-            result += P[i - 1] * b
+            result += P[i] * b
         }
         
         return result
