@@ -123,7 +123,7 @@ class SplineHelper {
         var result = 0.0
 //        P.append(P.last!)
         for i in 0 ..< P.count {
-            let b = calcB(i: i, k: d, u: U, t: t)
+            let b = calcB(i: i + 1, k: d - 1, u: U, t: t)
             result += P[i] * b
         }
         

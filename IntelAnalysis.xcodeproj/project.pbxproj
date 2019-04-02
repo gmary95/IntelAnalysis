@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8730AA8522537F8A00B44DC7 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 8730AA8422537F8A00B44DC7 /* data */; };
 		8E8205A4222329350047C4CE /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8205A3222329350047C4CE /* DoubleExtension.swift */; };
 		8E8205A6222330390047C4CE /* SplineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8205A5222330390047C4CE /* SplineHelper.swift */; };
 		8E8205A8222337FD0047C4CE /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8205A7222337FD0047C4CE /* Matrix.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		7E296AB29C23F09426AD3F18 /* Pods-IntelAnalysis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntelAnalysis.release.xcconfig"; path = "Target Support Files/Pods-IntelAnalysis/Pods-IntelAnalysis.release.xcconfig"; sourceTree = "<group>"; };
+		8730AA8422537F8A00B44DC7 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
 		8E8205A3222329350047C4CE /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		8E8205A5222330390047C4CE /* SplineHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplineHelper.swift; sourceTree = "<group>"; };
 		8E8205A7222337FD0047C4CE /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		8ED6264B220C8FC700C7D41B /* IntelAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				8730AA8422537F8A00B44DC7 /* data */,
 				8ECAB77E221420E600077761 /* Utils */,
 				8ED62661220C90EE00C7D41B /* UserInterfase */,
 				8ED6265C220C900500C7D41B /* Model */,
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ED62651220C8FC800C7D41B /* Assets.xcassets in Resources */,
+				8730AA8522537F8A00B44DC7 /* data in Resources */,
 				8ED62654220C8FC800C7D41B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
