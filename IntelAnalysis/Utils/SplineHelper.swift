@@ -82,43 +82,6 @@ class SplineHelper {
         }
     }
     
-//    func createMatrix(k: Int, t: Double) {
-//        var array:[[Double]] = [[]]
-//        var arr: [Double] = []
-//        for j in 0 ... d {
-//            var result = 0.0
-//            if ((U[k] <= t) && (t < U[k+1])) {
-//                result = 1.0
-//            } else {
-//                result = 0.0
-//            }
-//            arr.append(result)
-//        }
-//        array.append(arr)
-//        for i in 1 ..< d {
-//            var arr: [Double] = []
-//            for j in 1 ... d - i {
-//                var result = 0.0
-//                var memb1, memb2: Double
-//                if(u[j + k - 1]==u[i]) {
-//                    memb1 = 0
-//                } else {
-//                    let b = calcB(i: i, k: k - 1, u: u, t: t)
-//                    memb1 = ((t - u[j]) / (u[i+k - 1] - u[i])) * b
-//                }
-//                if (u[i+k] == u[i+1]) {
-//                    memb2 = 0
-//                } else {
-//                    let b = calcB(i: i + 1, k: k - 1, u: u, t: t)
-//                    memb2 = ((u[i+k] - t) / (u[i+k] - u[i+1])) * b
-//                }
-//                result = memb1 + memb2
-//                arr.append(result)
-//            }
-//            array.append(arr)
-//        }
-//    }
-    
     func calcZ(t: Double) -> Double {
         var result = 0.0
 //        P.append(P.last!)
