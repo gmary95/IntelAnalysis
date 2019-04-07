@@ -20,6 +20,7 @@ class ViewController: NSViewController {
     var arrayOfName = Array<String>()
     var selection = Selection(order: 1, capacity: 0)
     var arrayOfSmooth = Array<Double>()
+    var tmp = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,14 +119,16 @@ class ViewController: NSViewController {
     }
     
     @IBAction func startProccess(_ sender: Any) {
-        let tmp: Int = Int(dText.title) ?? 6
+        tmp = Int(dText.title) ?? 6
         var pArr:[Double] = []
         let d = tmp
+        tmp = tmp - 1
         let count: Int = arrayOfTimeSeries.count / tmp
+
         for i in 0 ..< count {
             pArr.append(arrayOfTimeSeries[tmp * i])
         }
-        for _ in 0 ..< tmp - 1 {
+        for _ in 0 ..< tmp {
 //        if tmp * count < arrayOfTimeSeries.count {
             pArr.append(arrayOfTimeSeries.last!)
         }
@@ -136,9 +139,12 @@ class ViewController: NSViewController {
             tArray.append(Double(i + 1) * step)
         }
         arrayOfSmooth = []
-        for i in 0 ..< tArray.count {
+        arrayOfSmooth.append(arrayOfTimeSeries.first!)
+        for i in 1 ..< tArray.count - 1 {
             arrayOfSmooth.append(split.calcZ(t: tArray[i]))
         }
+        arrayOfSmooth.append(arrayOfTimeSeries.last!)
+        
         timeSeriesTabel.reloadData()
         
         representChart(timeSeries: arrayOfTimeSeries, regresion: arrayOfSmooth, chart: timeSeriesRepresentationChart)
