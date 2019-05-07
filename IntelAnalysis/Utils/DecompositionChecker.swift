@@ -1,3 +1,3 @@
 protocol DecompositionChecker {
-    func getResult(result: Double, eps: Double) -> String
+    static func getResult(result: Double, eps: Double) -> String
 }
