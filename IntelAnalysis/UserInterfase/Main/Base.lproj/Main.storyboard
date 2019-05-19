@@ -1165,9 +1165,46 @@
                                     </tabViewItem>
                                 </tabViewItems>
                             </tabView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Nn-Po-D08" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="384" y="86" width="521" height="578"/>
-                            </customView>
+                            <tabView translatesAutoresizingMaskIntoConstraints="NO" id="dnr-su-HAG">
+                                <rect key="frame" x="377" y="80" width="539" height="594"/>
+                                <font key="font" metaFont="system"/>
+                                <tabViewItems>
+                                    <tabViewItem label="Chart" identifier="" id="wvi-sl-c7Q">
+                                        <view key="view" id="q6a-xX-CYV">
+                                            <rect key="frame" x="10" y="33" width="519" height="548"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Nn-Po-D08" customClass="LineChartView" customModule="Charts">
+                                                    <rect key="frame" x="0.0" y="0.0" width="519" height="548"/>
+                                                </customView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="9Nn-Po-D08" secondAttribute="bottom" id="7tV-ff-3HB"/>
+                                                <constraint firstItem="9Nn-Po-D08" firstAttribute="top" secondItem="q6a-xX-CYV" secondAttribute="top" id="ChY-Fp-JCo"/>
+                                                <constraint firstItem="9Nn-Po-D08" firstAttribute="leading" secondItem="q6a-xX-CYV" secondAttribute="leading" id="OUO-eU-4L7"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Nn-Po-D08" secondAttribute="trailing" id="T9R-yZ-xG1"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Gistogram" identifier="" id="6BL-Pw-W7L">
+                                        <view key="view" id="m9Q-jM-ptC">
+                                            <rect key="frame" x="10" y="33" width="519" height="548"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MEH-Oy-lcB" customClass="BarChartView" customModule="Charts">
+                                                    <rect key="frame" x="0.0" y="0.0" width="519" height="548"/>
+                                                </customView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="MEH-Oy-lcB" secondAttribute="bottom" id="0KQ-Qf-ogo"/>
+                                                <constraint firstItem="MEH-Oy-lcB" firstAttribute="top" secondItem="m9Q-jM-ptC" secondAttribute="top" id="Wen-dt-qkO"/>
+                                                <constraint firstAttribute="trailing" secondItem="MEH-Oy-lcB" secondAttribute="trailing" id="jdU-X8-KUv"/>
+                                                <constraint firstItem="MEH-Oy-lcB" firstAttribute="leading" secondItem="m9Q-jM-ptC" secondAttribute="leading" id="uPw-td-GWk"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                </tabViewItems>
+                            </tabView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DJd-h8-oQi">
                                 <rect key="frame" x="809" y="20" width="96" height="22"/>
                                 <constraints>
@@ -1206,6 +1243,9 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lBB-Gi-1Lg">
                                 <rect key="frame" x="495" y="13" width="144" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="132" id="1ll-MD-TS9"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Start Detection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sRd-fQ-3bh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1257,6 +1297,16 @@
                                     <action selector="represent:" target="XfG-lQ-9wD" id="ewz-da-Ae0"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDj-54-vb2">
+                                <rect key="frame" x="668" y="46" width="103" height="32"/>
+                                <buttonCell key="cell" type="push" title="Gistogram" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="juc-B9-rO9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="buildGistogram:" target="XfG-lQ-9wD" id="RAp-dy-3cY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="leading" secondItem="hvy-js-EBt" secondAttribute="trailing" constant="8" id="06h-We-ea7"/>
@@ -1264,28 +1314,29 @@
                             <constraint firstItem="smv-RL-7iL" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="2vC-8A-9LE"/>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="centerY" secondItem="DJd-h8-oQi" secondAttribute="centerY" id="4ZZ-e6-tjk"/>
                             <constraint firstItem="hvy-js-EBt" firstAttribute="top" secondItem="IlW-cF-TpL" secondAttribute="top" id="7MK-gx-zru"/>
-                            <constraint firstItem="9Nn-Po-D08" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="ABR-hE-oN9"/>
-                            <constraint firstAttribute="trailing" secondItem="9Nn-Po-D08" secondAttribute="trailing" constant="20" id="DC3-nV-Cgz"/>
+                            <constraint firstAttribute="trailing" secondItem="dnr-su-HAG" secondAttribute="trailing" constant="16" id="9ah-HA-4IL"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="DJd-h8-oQi" secondAttribute="top" id="Fhk-V5-9wx"/>
                             <constraint firstItem="b1e-tf-x88" firstAttribute="top" secondItem="smv-RL-7iL" secondAttribute="bottom" constant="12" id="IaS-Hs-vNA"/>
+                            <constraint firstItem="smv-RL-7iL" firstAttribute="top" secondItem="dnr-su-HAG" secondAttribute="bottom" constant="16" id="Irl-Fb-JsF"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="centerY" secondItem="b1e-tf-x88" secondAttribute="centerY" id="Nop-j0-gpH"/>
+                            <constraint firstItem="dnr-su-HAG" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="PsS-HL-Kf6"/>
                             <constraint firstAttribute="bottom" secondItem="4lb-vJ-4pI" secondAttribute="bottom" constant="20" id="Tcr-MP-hzV"/>
                             <constraint firstAttribute="bottom" secondItem="b1e-tf-x88" secondAttribute="bottom" constant="20" id="XJH-gh-ztl"/>
                             <constraint firstItem="DJd-h8-oQi" firstAttribute="leading" secondItem="I9m-gJ-C0L" secondAttribute="trailing" constant="8" id="bgD-4f-9bM"/>
                             <constraint firstItem="hvy-js-EBt" firstAttribute="bottom" secondItem="IlW-cF-TpL" secondAttribute="bottom" id="fUA-GL-fhE"/>
-                            <constraint firstItem="smv-RL-7iL" firstAttribute="top" secondItem="9Nn-Po-D08" secondAttribute="bottom" constant="12" id="fmT-Mh-NKX"/>
+                            <constraint firstItem="dnr-su-HAG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="fX7-72-RJH"/>
+                            <constraint firstItem="hDj-54-vb2" firstAttribute="leading" secondItem="mGf-fM-VaW" secondAttribute="trailing" constant="8" id="gHy-We-aKA"/>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="leading" secondItem="hvy-js-EBt" secondAttribute="trailing" constant="8" id="gTb-ID-se3"/>
-                            <constraint firstItem="hvy-js-EBt" firstAttribute="leading" secondItem="lBB-Gi-1Lg" secondAttribute="trailing" constant="8" id="guX-Mu-Djm"/>
+                            <constraint firstItem="hvy-js-EBt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lBB-Gi-1Lg" secondAttribute="trailing" constant="8" id="guX-Mu-Djm"/>
                             <constraint firstItem="b1e-tf-x88" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="iJy-eY-TSI"/>
-                            <constraint firstItem="9Nn-Po-D08" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="jFj-MB-pJy"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" id="lCT-RM-Hzj"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="leading" secondItem="IlW-cF-TpL" secondAttribute="trailing" constant="8" id="lhL-43-hll"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="leading" secondItem="b1e-tf-x88" secondAttribute="trailing" constant="8" id="mBd-LM-RyR"/>
-                            <constraint firstItem="mGf-fM-VaW" firstAttribute="top" secondItem="9Nn-Po-D08" secondAttribute="bottom" constant="12" id="mEU-RF-4dR"/>
                             <constraint firstItem="mGf-fM-VaW" firstAttribute="leading" secondItem="smv-RL-7iL" secondAttribute="trailing" constant="12" id="oYe-p1-mgD"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="top" secondItem="mGf-fM-VaW" secondAttribute="bottom" constant="12" id="pJH-7m-Rbk"/>
                             <constraint firstAttribute="trailing" secondItem="DJd-h8-oQi" secondAttribute="trailing" constant="20" id="rh8-So-C9f"/>
                             <constraint firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" constant="20" id="sWl-Ds-zV9"/>
+                            <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="hDj-54-vb2" secondAttribute="bottom" constant="11" id="vcX-0M-v0C"/>
                             <constraint firstItem="4lb-vJ-4pI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="yob-gt-IFn"/>
                         </constraints>
                     </view>
@@ -1295,6 +1346,7 @@
                         <outlet property="HText" destination="2BO-I2-shX" id="dxd-QK-xMz"/>
                         <outlet property="cusumTabel" destination="gA2-kZ-WP6" id="JzP-fb-h1m"/>
                         <outlet property="dText" destination="ghD-uY-YLh" id="Vrt-J3-Nno"/>
+                        <outlet property="gistogramRepresentationChart" destination="MEH-Oy-lcB" id="LBw-gl-wIL"/>
                         <outlet property="grshTabel" destination="Ieu-cd-pkv" id="buC-BH-A5g"/>
                         <outlet property="timeSeriesRepresentationChart" destination="9Nn-Po-D08" id="qtC-tF-6Mp"/>
                         <outlet property="timeSeriesTabel" destination="V5S-le-5hZ" id="W43-81-cHZ"/>

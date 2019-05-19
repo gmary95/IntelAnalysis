@@ -7,6 +7,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var cusumTabel: NSTableView!
     @IBOutlet weak var grshTabel: NSTableView!
     @IBOutlet weak var timeSeriesRepresentationChart: LineChartView!
+    @IBOutlet weak var gistogramRepresentationChart: BarChartView!
     @IBOutlet weak var dText: NSTextFieldCell!
     @IBOutlet weak var HText: NSTextFieldCell!
     @IBOutlet weak var GRShButton: NSButton!
@@ -19,11 +20,14 @@ class ViewController: NSViewController {
     var arrayOfName = Array<String>()
     var selection = Selection(order: 1, capacity: 0)
     var arrayOfSmooth = Array<Double>()
-    var arrayOfCusum = Array<Double>()
+    var arrayOfCusum1 = Array<Double>()
+    var arrayOfCusum2 = Array<Double>()
     var arrayOfGRSh = Array<Double>()
     var tmp = 1
     let arrayCount = 3
     var kArray:[Double] = []
+    var result:[Point] = []
+    var intervals:[GistogramModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +127,7 @@ class ViewController: NSViewController {
         let dataSet = LineChartDataSet(values: series, label: "Current time series")
         dataSet.colors = [NSUIColor.yellow]
         dataSet.valueColors = [NSUIColor.white]
+        dataSet.drawCirclesEnabled = false
         data.addDataSet(dataSet)
         
         if let pointsSet = points {
@@ -152,53 +157,165 @@ class ViewController: NSViewController {
         chart.rightAxis.labelTextColor = .white
     }
     
+    func representTransformChart(timeSeries: Array<Double>, points: Array<ChartDataEntry>?, regresion: Array<ChartDataEntry>?, chart: LineChartView){
+        let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        
+        let data = LineChartData()
+        let dataSet = LineChartDataSet(values: series, label: "Current time series")
+        dataSet.colors = [NSUIColor.yellow]
+        dataSet.valueColors = [NSUIColor.white]
+        dataSet.drawCirclesEnabled = false
+        data.addDataSet(dataSet)
+        
+        if let pointsSet = points {
+            let dataPointsSet = LineChartDataSet(values: pointsSet, label: "Points")
+            dataPointsSet.colors = [NSUIColor.clear]
+            dataPointsSet.valueColors = [NSUIColor.red]
+            dataPointsSet.circleColors = [NSUIColor.red]
+            data.addDataSet(dataPointsSet)
+        }
+        
+        if let reg = regresion {
+            let dataSetRegresion = LineChartDataSet(values: reg, label: "")
+            dataSetRegresion.colors = [NSUIColor.red]
+            dataSetRegresion.valueColors = [NSUIColor.clear]
+            dataSetRegresion.drawCirclesEnabled = false
+            data.addDataSet(dataSetRegresion)
+        }
+        
+        chart.data = data
+        
+        chart.gridBackgroundColor = .red
+        chart.legend.textColor = .white
+        chart.xAxis.labelTextColor = .white
+        chart.leftAxis.labelTextColor = .white
+        chart.rightAxis.labelTextColor = .white
+    }
+    
     func dictionaryToArray(dictionary: Dictionary<String, Double>) -> Array<Double> {
         let array = Array(dictionary.values)
         return array
     }
     
+    @IBAction func buildGistogram(_ sender: Any) {
+        if result.count > 0 {
+            let arrayOfPoints = createArrayGist()
+            let points = createPointsGraph(array: result)
+            representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: arrayOfPoints, chart: timeSeriesRepresentationChart)
+            createInterval()
+            for i in 0 ..< intervals.count {
+                var n = 0
+                for j in 0 ..< arrayOfSmooth.count {
+                    if arrayOfSmooth[j] >= intervals[i].ymin && arrayOfSmooth[j] <= intervals[i].ymax {
+                        if j + 1 >= Int(intervals[i].tmin) && j + 1 <= Int(intervals[i].tmax) {
+                            n += 1
+                        }
+                    }
+                }
+                intervals[i].n = n
+            }
+            let months = intervals.map { e in return "[\(e.tmin); \(e.tmax)]"}
+            let unitsSold = intervals.map {
+                e in return Double(e.n)
+            }
+            
+            let data = gistogramRepresentationChart.setBarChartData(xValues: months, yValues: unitsSold, label: "Monthly Sales")
+            self.gistogramRepresentationChart.data = data
+            self.gistogramRepresentationChart.gridBackgroundColor = NSUIColor.white
+            self.gistogramRepresentationChart.xAxis.labelTextColor = .white
+            self.gistogramRepresentationChart.leftAxis.labelTextColor = .white
+            self.gistogramRepresentationChart.rightAxis.labelTextColor = .white
+            print("")
+        } else {
+             _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
+        }
+    }
+    
+    func createArrayGist() -> [ChartDataEntry] {
+        var tmp: [ChartDataEntry] = []
+//        tmp.append(ChartDataEntry(x: 0.0, y: 0.0))
+//        tmp.append(ChartDataEntry(x: 0.0, y: 3.0))
+//        tmp.append(ChartDataEntry(x: result[0].x, y: 3.0))
+//        tmp.append(ChartDataEntry(x: result[0].x, y: 0.0))
+        for i in 0 ..< result.count - 1 {
+            tmp.append(ChartDataEntry(x: result[i].x - 1.0, y: 0.0))
+            tmp.append(ChartDataEntry(x: result[i].x - 1.0, y: result[i].y))
+            tmp.append(ChartDataEntry(x: result[i + 1].x - 1.0, y: result[i].y))
+            tmp.append(ChartDataEntry(x: result[i + 1].x - 1.0, y: 0.0))
+        }
+        
+        tmp.append(ChartDataEntry(x: result[result.count - 1].x - 1.0, y: 0.0))
+        tmp.append(ChartDataEntry(x: result[result.count - 1].x - 1.0, y: result[result.count - 1].y))
+        tmp.append(ChartDataEntry(x: Double(arrayOfTimeSeries.count) - 1.0, y: result[result.count - 1].y))
+        tmp.append(ChartDataEntry(x: Double(arrayOfTimeSeries.count) - 1.0, y: 0.0))
+        return tmp
+    }
+    
+    func createInterval() {
+        for i in 1 ..< result.count {
+            let ymin = result[i].y < result[i - 1].y ? result[i].y : result[i - 1].y
+            let ymax = result[i].y < result[i - 1].y ? result[i - 1].y : result[i].y
+            let tmin = result[i].x < result[i - 1].x ? result[i].x : result[i - 1].x
+            let tmax = result[i].x < result[i - 1].x ? result[i - 1].x : result[i].x
+            intervals.append(GistogramModel(ymin: ymin, ymax: ymax, tmin: tmin, tmax: tmax))
+        }
+    }
+    
     @IBAction func startProccess(_ sender: Any) {
-        tmp = Int(dText.title) ?? 6
-        var pArr:[Double] = []
-        let d = tmp
-        tmp = tmp - 1
-        let count: Int = arrayOfTimeSeries.count / tmp
-
-        for i in 0 ..< count {
-            pArr.append(arrayOfTimeSeries[tmp * i])
+        if arrayOfTimeSeries.count != 0 {
+            tmp = Int(dText.title) ?? 6
+            var pArr:[Double] = []
+            let d = tmp
+            tmp = tmp - 1
+            let count: Int = arrayOfTimeSeries.count / tmp
+            
+            for i in 0 ..< count {
+                pArr.append(arrayOfTimeSeries[tmp * i])
+            }
+            for _ in 0 ..< tmp {
+                //        if tmp * count < arrayOfTimeSeries.count {
+                pArr.append(arrayOfTimeSeries.last!)
+            }
+            let split = SplineHelper(P: pArr, n: arrayOfTimeSeries.count, d: d)
+            var tArray: [Double] = []
+            let step = 1.0 / Double(tmp)
+            for i in 0 ..< arrayOfTimeSeries.count {
+                tArray.append(Double(i + 1) * step)
+            }
+            arrayOfSmooth = []
+            arrayOfSmooth.append(arrayOfTimeSeries.first!)
+            for i in 1 ..< tArray.count - 1 {
+                arrayOfSmooth.append(split.calcZ(t: tArray[i]))
+            }
+            arrayOfSmooth.append(arrayOfTimeSeries.last!)
+            representChart(timeSeries: arrayOfTimeSeries, regresion: arrayOfSmooth, chart: timeSeriesRepresentationChart)
+        } else {
+            arrayOfTimeSeries = createRandomSeries()
+            arrayOfSmooth = arrayOfTimeSeries
+            arrayOfName = []
+            for i in 0 ..< arrayOfTimeSeries.count {
+                arrayOfName.append("\(i)")
+            }
+            representChart(timeSeries: arrayOfTimeSeries, regresion: nil, chart: timeSeriesRepresentationChart)
         }
-        for _ in 0 ..< tmp {
-//        if tmp * count < arrayOfTimeSeries.count {
-            pArr.append(arrayOfTimeSeries.last!)
-        }
-        let split = SplineHelper(P: pArr, n: arrayOfTimeSeries.count, d: d)
-        var tArray: [Double] = []
-        let step = 1.0 / Double(tmp)
-        for i in 0 ..< arrayOfTimeSeries.count {
-            tArray.append(Double(i + 1) * step)
-        }
-        arrayOfSmooth = []
-        arrayOfSmooth.append(arrayOfTimeSeries.first!)
-        for i in 1 ..< tArray.count - 1 {
-            arrayOfSmooth.append(split.calcZ(t: tArray[i]))
-        }
-        arrayOfSmooth.append(arrayOfTimeSeries.last!)
         
         timeSeriesTabel.reloadData()
-        
-        representChart(timeSeries: arrayOfTimeSeries, regresion: arrayOfSmooth, chart: timeSeriesRepresentationChart)
     }
     
     @IBAction func startDetection(_ sender: Any) {
         eps = Double(HText.title) ?? 6.0
         if arrayOfSmooth.count > 0 {
-            arrayOfCusum = []
+            arrayOfCusum1 = []
+            arrayOfCusum2 = []
             arrayOfGRSh = []
             kArray = createKArray()
             calcCUSUM(array: kArray)
-            calcGRSh(array: kArray)
+            
+//            kArray = createZArray()
+            calcGraph(array: arrayOfSmooth)
             CusumButton.isHidden = false
             GRShButton.isHidden = false
+            
             representTransformChart(timeSeries: arrayOfSmooth, points: nil, regresion: kArray, chart: timeSeriesRepresentationChart)
         } else {
             _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with smoothing")
@@ -211,7 +328,7 @@ class ViewController: NSViewController {
             representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: kArray, chart: timeSeriesRepresentationChart)
         }
         if sender == GRShButton {
-            let points = createPointsGRSh()
+            let points = createPointsGraph(array: result)
             representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: kArray, chart: timeSeriesRepresentationChart)
         }
     }
@@ -230,17 +347,46 @@ class ViewController: NSViewController {
         return kArray
     }
     
-    func calcCUSUM(array: [Double]) {
-        for i in 0 ..< arrayCount {
-            arrayOfCusum.append(0)
+    func createZArray() -> [Double] {
+        var kArray: [Double] = []
+        for _ in 0 ..< arrayCount {
+            kArray.append(0)
         }
-        var y = Array(array[0...arrayCount])
-        for i in arrayCount ..< array.count {
+        for i in arrayCount ..< arrayOfSmooth.count {
+            let y = Array(arrayOfSmooth[i - arrayCount ... i])
+            let y_av = calcM(y: y)
+            let varience = calcVar(y: y)
+            let z = (y.last! - y_av) / varience
+            kArray.append(z)
+        }
+        return kArray
+    }
+    
+    func calcCUSUM(array: [Double]) {
+        for _ in 0...arrayCount {
+            arrayOfCusum1.append(0.0)
+            arrayOfCusum2.append(0.0)
+        }
+
+        var S1 = 0.0
+        var S2 = 0.0
+        for i in arrayCount ..< array.count - 1 {
+            let y = Array(array[i - arrayCount ... i])
             let m = calcM(y: y)
-            let cusumManager = CUSUM(y: y, m1: m)
-            let elem = cusumManager.calcS(t: i - arrayCount)
-            arrayOfCusum.append(elem)
-            y.append(array[i])
+            let cusumManager = CUSUM(y: array, m1: m)
+            let elem1 = cusumManager.calcS1(t: i + 1, SPrev: S1)
+            S1 = elem1
+            
+            let elem2 = cusumManager.calcS2(t: i + 1, SPrev: S2)
+            S2 = elem2
+            
+            if elem1 > eps || elem2 > eps{
+                S1 = 0.0
+                S2 = 0.0
+            }
+            
+            arrayOfCusum1.append(elem1)
+            arrayOfCusum2.append(elem2)
         }
         cusumTabel.reloadData()
     }
@@ -254,25 +400,73 @@ class ViewController: NSViewController {
         return result
     }
     
+    func calcVar(y: [Double]) -> Double {
+        var result: Double
+        var sum: Double
+        var arithMeam: Double
+        
+        arithMeam = calcM(y: y)
+        
+        sum = 0
+        for item in y {
+            sum += pow((item - arithMeam), 2)
+        }
+        
+        result = sum / Double((y.count - 1))
+        
+        return result
+    }
+    
     func calcGRSh(array: [Double]) {
-        for i in 0 ..< arrayCount {
-            arrayOfGRSh.append(0)
-        }
-        var y = Array(array[0...arrayCount])
-        for i in arrayCount ..< array.count {
-            let grshManager = GRSh(y: y)
-            let elem = grshManager.calcW(t: i - arrayCount)
+        var W = 0.0
+        
+        for i in 0 ..< array.count - 1 {
+            let grshManager = GRSh(y: array)
+            let elem = grshManager.calcW(t: i, WPrev: W)
+            
+            W = elem
+            
+            if elem >= eps {
+                W = 0.0
+            }
+            
             arrayOfGRSh.append(elem)
-            y.append(array[i])
         }
+        grshTabel.reloadData()
+    }
+    
+    func calcChangeZero(array: [Double]) {
+        var W = 0.0
+        
+        for i in 0 ..< array.count - 1 {
+            let elem = array[i]
+            
+            arrayOfGRSh.append(elem)
+        }
+        grshTabel.reloadData()
+    }
+    
+    func calcGraph(array: [Double]) {
+        result = []
+        let graphManager = GraphManager()
+        let points = graphManager.createPoints(y: array)
+        
+        graphManager.calcD(points: points, bar: eps, result: &result)
+        
         grshTabel.reloadData()
     }
     
     func createPointsCusum() -> [ChartDataEntry] {
         var result: [ChartDataEntry] = []
-        for i in 1 ..< arrayOfCusum.count {
-            if CUSUM.getResult(result: arrayOfCusum[i], eps: eps) != CUSUM.getResult(result: arrayOfCusum[i - 1], eps: eps) {
-                result.append(ChartDataEntry(x: Double(i), y: arrayOfSmooth[i]))
+        for i in 0 ..< arrayOfCusum1.count {
+            if arrayOfCusum1[i] > eps || arrayOfCusum2[i] > eps{
+                if let elem = result.last {
+                    if (i - Int(elem.x) - 1) > 10 {
+                        result.append(ChartDataEntry(x: Double(i + 1), y: arrayOfSmooth[i]))
+                    }
+                } else {
+                    result.append(ChartDataEntry(x: Double(i + 1), y: arrayOfSmooth[i]))
+                }
             }
         }
         return result
@@ -280,13 +474,52 @@ class ViewController: NSViewController {
     
     func createPointsGRSh() -> [ChartDataEntry] {
         var result: [ChartDataEntry] = []
-        for i in 1 ..< arrayOfGRSh.count {
-            if CUSUM.getResult(result: arrayOfGRSh[i], eps: eps) != CUSUM.getResult(result: arrayOfGRSh[i - 1], eps: eps) {
-                result.append(ChartDataEntry(x: Double(i), y: arrayOfSmooth[i]))
+        for i in 0 ..< arrayOfGRSh.count {
+            if arrayOfGRSh[i] >= eps {
+                result.append(ChartDataEntry(x: Double(i + 1), y: arrayOfSmooth[i]))
             }
         }
         return result
     }
+    
+    func createPointsZero() -> [ChartDataEntry] {
+        var result: [ChartDataEntry] = []
+        for i in 1 ..< arrayOfGRSh.count {
+            if arrayOfGRSh[i].sign != arrayOfGRSh[i - 1].sign {
+                result.append(ChartDataEntry(x: Double(i + 1), y: arrayOfSmooth[i]))
+            }
+        }
+        return result
+    }
+    
+    func createPointsGraph(array: [Point]) -> [ChartDataEntry] {
+        var result: [ChartDataEntry] = []
+        for elem in array {
+                result.append(ChartDataEntry(x: Double(elem.x - 1.0), y: elem.y))
+        }
+        return result
+    }
+    
+    func createRandomSeries() -> [Double] {
+        var result: [Double] = []
+        let count = 50
+        var m = 3.0
+            for _ in 0...count {
+                result.append(m + Double.random(in: 0...1))
+            }
+        
+        m = 25.0
+        for _ in 0...count {
+            result.append(m + Double.random(in: 0...1))
+        }
+        
+        m = 7.0
+        for _ in 0...count {
+            result.append(m + Double.random(in: 0...1))
+        }
+        return result
+    }
+
 }
 
 extension ViewController: NSTableViewDataSource {
@@ -297,7 +530,7 @@ extension ViewController: NSTableViewDataSource {
             return numberOfRows
         }
         if tableView == cusumTabel {
-            let numberOfRows:Int = arrayOfCusum.count
+            let numberOfRows:Int = arrayOfCusum1.count
             return numberOfRows
         }
         if tableView == grshTabel {
@@ -376,11 +609,11 @@ extension ViewController: NSTableViewDelegate {
                 text = "\(row + 1)"
                 cellIdentifier = CellIdentifiersDetectionTable.IndexCell
             } else if tableColumn == tableView.tableColumns[1] {
-                text = "\(arrayOfCusum[row].rounded(toPlaces: 6))"
+                text = "\(arrayOfCusum1[row].rounded(toPlaces: 6))"
                 cellIdentifier = CellIdentifiersDetectionTable.ValueCell
             } else if tableColumn == tableView.tableColumns[2] {
                 if arrayOfSmooth.count > 0 {
-                    text = "\(CUSUM.getResult(result: arrayOfCusum[row], eps: eps))"
+                    text = "\(arrayOfCusum2[row].rounded(toPlaces: 6))"
                     cellIdentifier = CellIdentifiersDetectionTable.ResultCell
                 }
             }
@@ -408,7 +641,11 @@ extension ViewController: NSTableViewDelegate {
                 cellIdentifier = CellIdentifiersDetectionTable.ValueCell
             } else if tableColumn == tableView.tableColumns[2] {
                 if arrayOfSmooth.count > 0 {
-                    text = "\(GRSh.getResult(result: arrayOfGRSh[row], eps: eps))"
+                    if row != 0 {
+                    if arrayOfGRSh[row].sign != arrayOfGRSh[row - 1].sign {
+                        text = "Has decomposition"
+                        }
+                    }
                     cellIdentifier = CellIdentifiersDetectionTable.ResultCell
                 }
             }
@@ -424,3 +661,36 @@ extension ViewController: NSTableViewDelegate {
 }
 
 
+extension BarChartView {
+    
+    private class BarChartFormatter: NSObject, IAxisValueFormatter {
+        
+        var labels: [String] = []
+        
+        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            return labels[Int(value)]
+        }
+        
+        init(labels: [String]) {
+            super.init()
+            self.labels = labels
+        }
+    }
+    
+    func setBarChartData(xValues: [String], yValues: [Double], label: String) -> BarChartData{
+        
+        var dataEntries: [BarChartDataEntry] = []
+        
+        for i in 0..<yValues.count {
+            let dataEntry = BarChartDataEntry(x: Double(i), y: yValues[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: label)
+        let chartData = BarChartData(dataSet: chartDataSet)
+        chartDataSet.colors = [NSUIColor.red]
+//        self.xAxis.valueFormatter = xAxis.valueFormatter
+        
+        return chartData
+    }
+}

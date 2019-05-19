@@ -11,9 +11,8 @@ class GRSh: DecompositionChecker {
         return exp(yt)
     }
     
-    func calcW(t: Int) -> Double {
-        if t == 0 { return 0 }
-        let Wt = w(yt: y[t - 1]) * (1 + calcW(t: t - 1))
+    func calcW(t: Int, WPrev: Double) -> Double {
+        let Wt = w(yt: y[t]) * (1 + WPrev)
         return Wt
     }
     
