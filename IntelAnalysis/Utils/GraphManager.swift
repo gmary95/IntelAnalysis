@@ -7,14 +7,13 @@ class GraphManager {
         for elem in points {
             selection.append(elem.y)
         }
-        let linear = LinearRegresion(selection: selection)
-        linear.initAllParam()
-        let k = linear.b
-        let b = linear.a
+        
+        let k = (points.last!.y - points.first!.y) / (points.last!.x - points.first!.x)
+        let b = points.last!.y - k * points.last!.x
         
         var dArray:[PointWithD] = []
         for point in points {
-            let d = fabs(k! * point.x - point.y + b!) / sqrt(pow(k!, 2.0) + 1.0)
+            let d = fabs(k * point.x - point.y + b) / sqrt(pow(k, 2.0) + 1.0)
             if d > bar {
                 dArray.append(PointWithD(point: point, d: d))
             }

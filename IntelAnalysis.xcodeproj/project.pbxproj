@@ -19,6 +19,9 @@
 		8ECAB780221420FF00077761 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB77F221420FF00077761 /* AlertHelper.swift */; };
 		8ECFD0062225241B007DB76B /* CUSUM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECFD0052225241B007DB76B /* CUSUM.swift */; };
 		8ECFD00822252994007DB76B /* DecompositionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECFD00722252994007DB76B /* DecompositionChecker.swift */; };
+		8ED2112422948E21008729D5 /* VariationalSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2112222948E21008729D5 /* VariationalSeries.swift */; };
+		8ED2112522948E21008729D5 /* FrequencyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2112322948E21008729D5 /* FrequencyCalculator.swift */; };
+		8ED2112722949596008729D5 /* SortedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED2112622949596008729D5 /* SortedDictionary.swift */; };
 		8ED6264D220C8FC700C7D41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6264C220C8FC700C7D41B /* AppDelegate.swift */; };
 		8ED6264F220C8FC700C7D41B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6264E220C8FC700C7D41B /* ViewController.swift */; };
 		8ED62651220C8FC800C7D41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ED62650220C8FC800C7D41B /* Assets.xcassets */; };
@@ -42,6 +45,9 @@
 		8ECAB77F221420FF00077761 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		8ECFD0052225241B007DB76B /* CUSUM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CUSUM.swift; sourceTree = "<group>"; };
 		8ECFD00722252994007DB76B /* DecompositionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecompositionChecker.swift; sourceTree = "<group>"; };
+		8ED2112222948E21008729D5 /* VariationalSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariationalSeries.swift; sourceTree = "<group>"; };
+		8ED2112322948E21008729D5 /* FrequencyCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyCalculator.swift; sourceTree = "<group>"; };
+		8ED2112622949596008729D5 /* SortedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedDictionary.swift; sourceTree = "<group>"; };
 		8ED62649220C8FC700C7D41B /* IntelAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED6264C220C8FC700C7D41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8ED6264E220C8FC700C7D41B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +132,9 @@
 		8ED6265C220C900500C7D41B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8ED2112622949596008729D5 /* SortedDictionary.swift */,
+				8ED2112322948E21008729D5 /* FrequencyCalculator.swift */,
+				8ED2112222948E21008729D5 /* VariationalSeries.swift */,
 				8E8205A7222337FD0047C4CE /* Matrix.swift */,
 				8ED6265D220C903600C7D41B /* Quantil.swift */,
 				8ED6265E220C903600C7D41B /* Selection.swift */,
@@ -284,6 +293,8 @@
 				8ECFD0062225241B007DB76B /* CUSUM.swift in Sources */,
 				8ECFD00822252994007DB76B /* DecompositionChecker.swift in Sources */,
 				8E8205A4222329350047C4CE /* DoubleExtension.swift in Sources */,
+				8ED2112522948E21008729D5 /* FrequencyCalculator.swift in Sources */,
+				8ED2112422948E21008729D5 /* VariationalSeries.swift in Sources */,
 				8EB7276522908FEE00A7DE2F /* Point.swift in Sources */,
 				8EBA7C802223E85600EF43D5 /* GRSh.swift in Sources */,
 				8ED62660220C903600C7D41B /* Selection.swift in Sources */,
@@ -295,6 +306,7 @@
 				8E50473F22913879002FA00B /* GraphManager.swift in Sources */,
 				8E504743229194B0002FA00B /* GistogramModel.swift in Sources */,
 				8ECAB780221420FF00077761 /* AlertHelper.swift in Sources */,
+				8ED2112722949596008729D5 /* SortedDictionary.swift in Sources */,
 				8ED6265F220C903600C7D41B /* Quantil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

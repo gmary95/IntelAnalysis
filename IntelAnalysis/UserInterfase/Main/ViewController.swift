@@ -7,7 +7,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var cusumTabel: NSTableView!
     @IBOutlet weak var grshTabel: NSTableView!
     @IBOutlet weak var timeSeriesRepresentationChart: LineChartView!
-    @IBOutlet weak var gistogramRepresentationChart: BarChartView!
+    @IBOutlet weak var gistogramTRepresentationChart: BarChartView!
+    @IBOutlet weak var gistogramYRepresentationChart: BarChartView!
     @IBOutlet weak var dText: NSTextFieldCell!
     @IBOutlet weak var HText: NSTextFieldCell!
     @IBOutlet weak var GRShButton: NSButton!
@@ -26,8 +27,10 @@ class ViewController: NSViewController {
     var tmp = 1
     let arrayCount = 3
     var kArray:[Double] = []
-    var result:[Point] = []
+    var resultArray:[Point] = []
     var intervals:[GistogramModel] = []
+    var classTSeries: Array<VariationalSeriesClass> = []
+    var classYSeries: Array<VariationalSeriesClass> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,14 +133,6 @@ class ViewController: NSViewController {
         dataSet.drawCirclesEnabled = false
         data.addDataSet(dataSet)
         
-        if let pointsSet = points {
-            let dataPointsSet = LineChartDataSet(values: pointsSet, label: "Points")
-            dataPointsSet.colors = [NSUIColor.clear]
-            dataPointsSet.valueColors = [NSUIColor.red]
-            dataPointsSet.circleColors = [NSUIColor.red]
-            data.addDataSet(dataPointsSet)
-        }
-        
         if let reg = regresion {
             let regresionSet = reg.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
             
@@ -146,6 +141,14 @@ class ViewController: NSViewController {
             dataSetRegresion.valueColors = [NSUIColor.clear]
             dataSetRegresion.drawCirclesEnabled = false
             data.addDataSet(dataSetRegresion)
+        }
+        
+        if let pointsSet = points {
+            let dataPointsSet = LineChartDataSet(values: pointsSet, label: "Points")
+            dataPointsSet.colors = [NSUIColor.clear]
+            dataPointsSet.valueColors = [NSUIColor.red]
+            dataPointsSet.circleColors = [NSUIColor.red]
+            data.addDataSet(dataPointsSet)
         }
         
         chart.data = data
@@ -198,33 +201,56 @@ class ViewController: NSViewController {
     }
     
     @IBAction func buildGistogram(_ sender: Any) {
-        if result.count > 0 {
-            let arrayOfPoints = createArrayGist()
-            let points = createPointsGraph(array: result)
-            representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: arrayOfPoints, chart: timeSeriesRepresentationChart)
-            createInterval()
-            for i in 0 ..< intervals.count {
-                var n = 0
-                for j in 0 ..< arrayOfSmooth.count {
-                    if arrayOfSmooth[j] >= intervals[i].ymin && arrayOfSmooth[j] <= intervals[i].ymax {
-                        if j + 1 >= Int(intervals[i].tmin) && j + 1 <= Int(intervals[i].tmax) {
-                            n += 1
-                        }
-                    }
-                }
-                intervals[i].n = n
+        if resultArray.count > 0 {
+            
+            let point = createArrayGist()
+            let points = createPointsGraph(array: resultArray)
+            representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: point, chart: timeSeriesRepresentationChart)
+            
+            let selectionT = Selection(order: 1, capacity: 0)
+            for i in 0 ..< resultArray.count {
+                selectionT.append(item: resultArray[i].x)
             }
-            let months = intervals.map { e in return "[\(e.tmin); \(e.tmax)]"}
-            let unitsSold = intervals.map {
-                e in return Double(e.n)
+            let variationTSeries = createVariationalSeries(select: selectionT)
+            classTSeries = splitSeries(series: variationTSeries)
+            
+            let selectionY = Selection(order: 1, capacity: 0)
+            for i in 0 ..< resultArray.count {
+                selectionY.append(item: resultArray[i].y)
+            }
+            let variationYSeries = createVariationalSeries(select: selectionY)
+            classYSeries = splitSeries(series: variationYSeries)
+            
+            var labelT: [String] = []
+            var xArr: [Double] = []
+            for i in 0 ..< classTSeries.count {
+                labelT.append("[\(classTSeries[i].min.rounded(toPlaces: 6));\(classTSeries[i].max.rounded(toPlaces: 6)))")
+                xArr.append(Double(classTSeries[i].frequency))
             }
             
-            let data = gistogramRepresentationChart.setBarChartData(xValues: months, yValues: unitsSold, label: "Monthly Sales")
-            self.gistogramRepresentationChart.data = data
-            self.gistogramRepresentationChart.gridBackgroundColor = NSUIColor.white
-            self.gistogramRepresentationChart.xAxis.labelTextColor = .white
-            self.gistogramRepresentationChart.leftAxis.labelTextColor = .white
-            self.gistogramRepresentationChart.rightAxis.labelTextColor = .white
+            let data = gistogramTRepresentationChart.setBarChartData(xValues: labelT, yValues: xArr, label: "T N")
+            self.gistogramTRepresentationChart.data = data
+            self.gistogramTRepresentationChart.gridBackgroundColor = NSUIColor.white
+            self.gistogramTRepresentationChart.xAxis.labelTextColor = .white
+            self.gistogramTRepresentationChart.leftAxis.labelTextColor = .white
+            self.gistogramTRepresentationChart.rightAxis.labelTextColor = .white
+            
+            var labelY: [String] = []
+            var yArr: [Double] = []
+            for i in 0 ..< classYSeries.count {
+                labelY.append("[\(classYSeries[i].min.rounded(toPlaces: 6));\(classYSeries[i].max.rounded(toPlaces: 6)))")
+                yArr.append(Double(classYSeries[i].frequency))
+            }
+            
+            let dataY = gistogramYRepresentationChart.setBarChartData(xValues: labelY, yValues: yArr, label: "Y N")
+            self.gistogramYRepresentationChart.data = dataY
+            self.gistogramYRepresentationChart.gridBackgroundColor = NSUIColor.white
+            self.gistogramYRepresentationChart.xAxis.labelTextColor = .white
+            self.gistogramYRepresentationChart.leftAxis.labelTextColor = .white
+            self.gistogramYRepresentationChart.rightAxis.labelTextColor = .white
+            
+            
+            
             print("")
         } else {
              _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
@@ -233,30 +259,24 @@ class ViewController: NSViewController {
     
     func createArrayGist() -> [ChartDataEntry] {
         var tmp: [ChartDataEntry] = []
-//        tmp.append(ChartDataEntry(x: 0.0, y: 0.0))
-//        tmp.append(ChartDataEntry(x: 0.0, y: 3.0))
-//        tmp.append(ChartDataEntry(x: result[0].x, y: 3.0))
-//        tmp.append(ChartDataEntry(x: result[0].x, y: 0.0))
-        for i in 0 ..< result.count - 1 {
-            tmp.append(ChartDataEntry(x: result[i].x - 1.0, y: 0.0))
-            tmp.append(ChartDataEntry(x: result[i].x - 1.0, y: result[i].y))
-            tmp.append(ChartDataEntry(x: result[i + 1].x - 1.0, y: result[i].y))
-            tmp.append(ChartDataEntry(x: result[i + 1].x - 1.0, y: 0.0))
+        tmp.append(ChartDataEntry(x: 0.0, y: arrayOfSmooth[0]))
+        tmp.append(ChartDataEntry(x: resultArray[0].x - 1.0, y: arrayOfSmooth[0]))
+        tmp.append(ChartDataEntry(x: resultArray[0].x - 1.0, y: 0.0))
+        for i in 0 ..< resultArray.count - 1 {
+            tmp.append(ChartDataEntry(x: resultArray[i].x - 1.0, y: 0.0))
+            tmp.append(ChartDataEntry(x: resultArray[i].x - 1.0, y: resultArray[i].y))
+            tmp.append(ChartDataEntry(x: resultArray[i + 1].x - 1.0, y: resultArray[i].y))
+            tmp.append(ChartDataEntry(x: resultArray[i + 1].x - 1.0, y: 0.0))
         }
-        
-        tmp.append(ChartDataEntry(x: result[result.count - 1].x - 1.0, y: 0.0))
-        tmp.append(ChartDataEntry(x: result[result.count - 1].x - 1.0, y: result[result.count - 1].y))
-        tmp.append(ChartDataEntry(x: Double(arrayOfTimeSeries.count) - 1.0, y: result[result.count - 1].y))
-        tmp.append(ChartDataEntry(x: Double(arrayOfTimeSeries.count) - 1.0, y: 0.0))
         return tmp
     }
     
     func createInterval() {
-        for i in 1 ..< result.count {
-            let ymin = result[i].y < result[i - 1].y ? result[i].y : result[i - 1].y
-            let ymax = result[i].y < result[i - 1].y ? result[i - 1].y : result[i].y
-            let tmin = result[i].x < result[i - 1].x ? result[i].x : result[i - 1].x
-            let tmax = result[i].x < result[i - 1].x ? result[i - 1].x : result[i].x
+        for i in 1 ..< resultArray.count {
+            let ymin = resultArray[i].y < resultArray[i - 1].y ? resultArray[i].y : resultArray[i - 1].y
+            let ymax = resultArray[i].y < resultArray[i - 1].y ? resultArray[i - 1].y : resultArray[i].y
+            let tmin = resultArray[i].x < resultArray[i - 1].x ? resultArray[i].x : resultArray[i - 1].x
+            let tmax = resultArray[i].x < resultArray[i - 1].x ? resultArray[i - 1].x : resultArray[i].x
             intervals.append(GistogramModel(ymin: ymin, ymax: ymax, tmin: tmin, tmax: tmax))
         }
     }
@@ -328,7 +348,7 @@ class ViewController: NSViewController {
             representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: kArray, chart: timeSeriesRepresentationChart)
         }
         if sender == GRShButton {
-            let points = createPointsGraph(array: result)
+            let points = createPointsGraph(array: resultArray)
             representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: kArray, chart: timeSeriesRepresentationChart)
         }
     }
@@ -349,14 +369,10 @@ class ViewController: NSViewController {
     
     func createZArray() -> [Double] {
         var kArray: [Double] = []
-        for _ in 0 ..< arrayCount {
-            kArray.append(0)
-        }
-        for i in arrayCount ..< arrayOfSmooth.count {
-            let y = Array(arrayOfSmooth[i - arrayCount ... i])
-            let y_av = calcM(y: y)
-            let varience = calcVar(y: y)
-            let z = (y.last! - y_av) / varience
+        let k = (arrayOfSmooth.last! - arrayOfSmooth.first!) / (Double(arrayOfSmooth.count) - 1.0)
+        let b =  arrayOfSmooth.last! - k * Double(arrayOfSmooth.count)
+        for i in 0 ..< arrayOfSmooth.count {
+            var z = k * Double(i + 1) + b
             kArray.append(z)
         }
         return kArray
@@ -447,11 +463,16 @@ class ViewController: NSViewController {
     }
     
     func calcGraph(array: [Double]) {
-        result = []
+        resultArray = []
         let graphManager = GraphManager()
         let points = graphManager.createPoints(y: array)
         
-        graphManager.calcD(points: points, bar: eps, result: &result)
+        graphManager.calcD(points: points, bar: eps, result: &resultArray)
+        
+        resultArray = resultArray.sorted {
+            $0.x < $1.x
+        }
+
         
         grshTabel.reloadData()
     }
@@ -497,6 +518,7 @@ class ViewController: NSViewController {
         for elem in array {
                 result.append(ChartDataEntry(x: Double(elem.x - 1.0), y: elem.y))
         }
+        
         return result
     }
     
@@ -534,7 +556,7 @@ extension ViewController: NSTableViewDataSource {
             return numberOfRows
         }
         if tableView == grshTabel {
-            let numberOfRows:Int = arrayOfGRSh.count
+            let numberOfRows:Int = resultArray.count
             return numberOfRows
         }
         return 0
@@ -637,15 +659,11 @@ extension ViewController: NSTableViewDelegate {
                 text = "\(row + 1)"
                 cellIdentifier = CellIdentifiersDetectionTable.IndexCell
             } else if tableColumn == tableView.tableColumns[1] {
-                text = "\(arrayOfGRSh[row].rounded(toPlaces: 6))"
+                text = "\(resultArray[row].x.rounded(toPlaces: 6))"
                 cellIdentifier = CellIdentifiersDetectionTable.ValueCell
             } else if tableColumn == tableView.tableColumns[2] {
                 if arrayOfSmooth.count > 0 {
-                    if row != 0 {
-                    if arrayOfGRSh[row].sign != arrayOfGRSh[row - 1].sign {
-                        text = "Has decomposition"
-                        }
-                    }
+                    text = "\(resultArray[row].y.rounded(toPlaces: 6))"
                     cellIdentifier = CellIdentifiersDetectionTable.ResultCell
                 }
             }
@@ -689,8 +707,44 @@ extension BarChartView {
         let chartDataSet = BarChartDataSet(values: dataEntries, label: label)
         let chartData = BarChartData(dataSet: chartDataSet)
         chartDataSet.colors = [NSUIColor.red]
-//        self.xAxis.valueFormatter = xAxis.valueFormatter
+        chartDataSet.valueColors = [.white]
+        self.xAxis.valueFormatter = xAxis.valueFormatter
         
         return chartData
+    }
+    
+    
+}
+
+
+extension ViewController {
+    private func createVariationalSeries(select: Selection) -> VariationalSeries {
+        var result = VariationalSeries()
+        var values = Dictionary<Double, Int>()
+        
+        for i in 0 ..< select.count {
+            if (values.keys.contains(select[i]) == false) {
+                values[select[i]] = 1
+            } else {
+                if var count = values[select[i]] {
+                    count += 1
+                    values[select[i]] = count
+                } else {
+                    values[select[i]] = 1
+                }
+            }
+        }
+        
+        result.add(values: values)
+        
+        return result
+    }
+    
+    public func splitSeries(series: VariationalSeries) -> Array<VariationalSeriesClass> {
+        var result: Array<VariationalSeriesClass>
+        
+        result = series.splitIntoClasses()
+        
+        return result
     }
 }

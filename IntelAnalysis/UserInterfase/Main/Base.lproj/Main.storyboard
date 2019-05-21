@@ -1191,15 +1191,31 @@
                                             <rect key="frame" x="10" y="33" width="519" height="548"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MEH-Oy-lcB" customClass="BarChartView" customModule="Charts">
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0Q-NC-cY4">
                                                     <rect key="frame" x="0.0" y="0.0" width="519" height="548"/>
-                                                </customView>
+                                                    <subviews>
+                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="MEH-Oy-lcB" customClass="BarChartView" customModule="Charts">
+                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="548"/>
+                                                        </customView>
+                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="o1w-8u-TBz" customClass="BarChartView" customModule="Charts">
+                                                            <rect key="frame" x="264" y="0.0" width="255" height="548"/>
+                                                        </customView>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="MEH-Oy-lcB" secondAttribute="bottom" id="0KQ-Qf-ogo"/>
-                                                <constraint firstItem="MEH-Oy-lcB" firstAttribute="top" secondItem="m9Q-jM-ptC" secondAttribute="top" id="Wen-dt-qkO"/>
-                                                <constraint firstAttribute="trailing" secondItem="MEH-Oy-lcB" secondAttribute="trailing" id="jdU-X8-KUv"/>
-                                                <constraint firstItem="MEH-Oy-lcB" firstAttribute="leading" secondItem="m9Q-jM-ptC" secondAttribute="leading" id="uPw-td-GWk"/>
+                                                <constraint firstItem="D0Q-NC-cY4" firstAttribute="top" secondItem="m9Q-jM-ptC" secondAttribute="top" id="BOs-b3-zp8"/>
+                                                <constraint firstItem="D0Q-NC-cY4" firstAttribute="leading" secondItem="m9Q-jM-ptC" secondAttribute="leading" id="BP7-9N-XwP"/>
+                                                <constraint firstAttribute="trailing" secondItem="D0Q-NC-cY4" secondAttribute="trailing" id="lVW-VW-MCb"/>
+                                                <constraint firstAttribute="bottom" secondItem="D0Q-NC-cY4" secondAttribute="bottom" id="p3O-5Q-3M5"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -1346,7 +1362,8 @@
                         <outlet property="HText" destination="2BO-I2-shX" id="dxd-QK-xMz"/>
                         <outlet property="cusumTabel" destination="gA2-kZ-WP6" id="JzP-fb-h1m"/>
                         <outlet property="dText" destination="ghD-uY-YLh" id="Vrt-J3-Nno"/>
-                        <outlet property="gistogramRepresentationChart" destination="MEH-Oy-lcB" id="LBw-gl-wIL"/>
+                        <outlet property="gistogramTRepresentationChart" destination="MEH-Oy-lcB" id="mv5-jY-dIh"/>
+                        <outlet property="gistogramYRepresentationChart" destination="o1w-8u-TBz" id="l0J-Rt-ZKR"/>
                         <outlet property="grshTabel" destination="Ieu-cd-pkv" id="buC-BH-A5g"/>
                         <outlet property="timeSeriesRepresentationChart" destination="9Nn-Po-D08" id="qtC-tF-6Mp"/>
                         <outlet property="timeSeriesTabel" destination="V5S-le-5hZ" id="W43-81-cHZ"/>
