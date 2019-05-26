@@ -208,15 +208,17 @@ class ViewController: NSViewController {
             representTransformChart(timeSeries: arrayOfSmooth, points: points, regresion: point, chart: timeSeriesRepresentationChart)
             
             let selectionT = Selection(order: 1, capacity: 0)
-            for i in 0 ..< resultArray.count {
-                selectionT.append(item: resultArray[i].x)
+            selectionT.append(item: resultArray[0].x - 0.0)
+            for i in 0 ..< resultArray.count - 1 {
+                selectionT.append(item: resultArray[i + 1].x - resultArray[i].x)
             }
             let variationTSeries = createVariationalSeries(select: selectionT)
             classTSeries = splitSeries(series: variationTSeries)
             
             let selectionY = Selection(order: 1, capacity: 0)
-            for i in 0 ..< resultArray.count {
-                selectionY.append(item: resultArray[i].y)
+             selectionY.append(item: resultArray[0].y - arrayOfSmooth[0])
+            for i in 0 ..< resultArray.count - 1 {
+                selectionY.append(item: resultArray[i + 1].y - resultArray[i].y)
             }
             let variationYSeries = createVariationalSeries(select: selectionY)
             classYSeries = splitSeries(series: variationYSeries)
@@ -224,7 +226,7 @@ class ViewController: NSViewController {
             var labelT: [String] = []
             var xArr: [Double] = []
             for i in 0 ..< classTSeries.count {
-                labelT.append("[\(classTSeries[i].min.rounded(toPlaces: 6));\(classTSeries[i].max.rounded(toPlaces: 6)))")
+                labelT.append("[\(classTSeries[i].min.rounded(toPlaces: 2));\(classTSeries[i].max.rounded(toPlaces: 2)))")
                 xArr.append(Double(classTSeries[i].frequency))
             }
             
@@ -235,10 +237,11 @@ class ViewController: NSViewController {
             self.gistogramTRepresentationChart.leftAxis.labelTextColor = .white
             self.gistogramTRepresentationChart.rightAxis.labelTextColor = .white
             
+            
             var labelY: [String] = []
             var yArr: [Double] = []
             for i in 0 ..< classYSeries.count {
-                labelY.append("[\(classYSeries[i].min.rounded(toPlaces: 6));\(classYSeries[i].max.rounded(toPlaces: 6)))")
+                labelY.append("[\(classYSeries[i].min.rounded(toPlaces: 2));\(classYSeries[i].max.rounded(toPlaces: 2)))")
                 yArr.append(Double(classYSeries[i].frequency))
             }
             
@@ -249,9 +252,45 @@ class ViewController: NSViewController {
             self.gistogramYRepresentationChart.leftAxis.labelTextColor = .white
             self.gistogramYRepresentationChart.rightAxis.labelTextColor = .white
             
+            let classSeries = ClassesModel()
+            for i in 0 ..< selectionT.count {
+                classSeries.add(point: Point(x: selectionT[i], y: selectionY[i]))
+            }
+            
+            var  classes: [SeriesClass] = []
+            var matrix:[[Int]] = []
+            for i in 0 ..< classTSeries.count {
+                var tmp: [Int] = []
+                for j in 0 ..< classYSeries.count {
+                    classes.append(classSeries.getClasses(dT: (classTSeries[i].min, classTSeries[i].max), dY: (classYSeries[j].min, classYSeries[j].max)))
+                    tmp.append((classes.last?.frequency)!)
+                }
+                matrix.append(tmp)
+            }
+            
+            var str = ""
+            
+            for i in 0 ..< matrix.count {
+                for j in 0 ..< matrix[0].count {
+                    str += "\(matrix[i][j]),"
+                }
+                str += "\n"
+            }
+            
+            let file = "file.txt" //this is the file. we will write to and read from it
             
             
-            print("")
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                
+                let fileURL = dir.appendingPathComponent(file)
+                //writing
+                do {
+                    try str.write(to: fileURL, atomically: false, encoding: .utf8)
+                }
+                catch {/* error handling here */}
+            }
+            
+            print(str)
         } else {
              _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
         }
@@ -708,7 +747,8 @@ extension BarChartView {
         let chartData = BarChartData(dataSet: chartDataSet)
         chartDataSet.colors = [NSUIColor.red]
         chartDataSet.valueColors = [.white]
-        self.xAxis.valueFormatter = xAxis.valueFormatter
+        self.xAxis.valueFormatter = IndexAxisValueFormatter(values:xValues)
+        self.xAxis.granularity = 1
         
         return chartData
     }
