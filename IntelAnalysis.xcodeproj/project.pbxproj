@@ -17,6 +17,7 @@
 		8E9BAC492295449C0093A8D9 /* ClassesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9BAC482295449C0093A8D9 /* ClassesModel.swift */; };
 		8EB7276522908FEE00A7DE2F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB7276422908FEE00A7DE2F /* Point.swift */; };
 		8EBA7C802223E85600EF43D5 /* GRSh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA7C7F2223E85600EF43D5 /* GRSh.swift */; };
+		8EC37449229C5FD0000F4819 /* RHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC37448229C5FD0000F4819 /* RHelper.swift */; };
 		8ECAB780221420FF00077761 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB77F221420FF00077761 /* AlertHelper.swift */; };
 		8ECFD0062225241B007DB76B /* CUSUM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECFD0052225241B007DB76B /* CUSUM.swift */; };
 		8ECFD00822252994007DB76B /* DecompositionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECFD00722252994007DB76B /* DecompositionChecker.swift */; };
@@ -44,6 +45,7 @@
 		8E9BAC482295449C0093A8D9 /* ClassesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesModel.swift; sourceTree = "<group>"; };
 		8EB7276422908FEE00A7DE2F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		8EBA7C7F2223E85600EF43D5 /* GRSh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRSh.swift; sourceTree = "<group>"; };
+		8EC37448229C5FD0000F4819 /* RHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RHelper.swift; sourceTree = "<group>"; };
 		8ECAB77F221420FF00077761 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		8ECFD0052225241B007DB76B /* CUSUM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CUSUM.swift; sourceTree = "<group>"; };
 		8ECFD00722252994007DB76B /* DecompositionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecompositionChecker.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				8ECFD0052225241B007DB76B /* CUSUM.swift */,
 				8ECFD00722252994007DB76B /* DecompositionChecker.swift */,
 				8E50473E22913879002FA00B /* GraphManager.swift */,
+				8EC37448229C5FD0000F4819 /* RHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E8205A6222330390047C4CE /* SplineHelper.swift in Sources */,
+				8EC37449229C5FD0000F4819 /* RHelper.swift in Sources */,
 				8ECFD0062225241B007DB76B /* CUSUM.swift in Sources */,
 				8ECFD00822252994007DB76B /* DecompositionChecker.swift in Sources */,
 				8E8205A4222329350047C4CE /* DoubleExtension.swift in Sources */,

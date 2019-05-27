@@ -706,7 +706,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="IntelAnalysis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="925" height="684"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1061" height="684"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tabView translatesAutoresizingMaskIntoConstraints="NO" id="4lb-vJ-4pI">
@@ -1166,7 +1166,7 @@
                                 </tabViewItems>
                             </tabView>
                             <tabView translatesAutoresizingMaskIntoConstraints="NO" id="dnr-su-HAG">
-                                <rect key="frame" x="377" y="80" width="539" height="594"/>
+                                <rect key="frame" x="377" y="80" width="675" height="594"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Chart" identifier="" id="wvi-sl-c7Q">
@@ -1188,17 +1188,17 @@
                                     </tabViewItem>
                                     <tabViewItem label="Gistogram" identifier="" id="6BL-Pw-W7L">
                                         <view key="view" id="m9Q-jM-ptC">
-                                            <rect key="frame" x="10" y="33" width="519" height="548"/>
+                                            <rect key="frame" x="10" y="33" width="655" height="548"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0Q-NC-cY4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="519" height="548"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="655" height="548"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="MEH-Oy-lcB" customClass="BarChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="548"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="548"/>
                                                         </customView>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="o1w-8u-TBz" customClass="BarChartView" customModule="Charts">
-                                                            <rect key="frame" x="264" y="0.0" width="255" height="548"/>
+                                                            <rect key="frame" x="332" y="0.0" width="323" height="548"/>
                                                         </customView>
                                                     </subviews>
                                                     <visibilityPriorities>
@@ -1222,7 +1222,7 @@
                                 </tabViewItems>
                             </tabView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DJd-h8-oQi">
-                                <rect key="frame" x="809" y="20" width="96" height="22"/>
+                                <rect key="frame" x="945" y="20" width="96" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="aeX-kY-nzE"/>
                                     <constraint firstAttribute="width" constant="96" id="q2t-n5-teX"/>
@@ -1234,7 +1234,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I9m-gJ-C0L">
-                                <rect key="frame" x="775" y="20" width="28" height="22"/>
+                                <rect key="frame" x="911" y="20" width="28" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="ml3-fB-U7S"/>
                                 </constraints>
@@ -1281,7 +1281,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlW-cF-TpL">
-                                <rect key="frame" x="673" y="20" width="96" height="22"/>
+                                <rect key="frame" x="809" y="20" width="96" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="YLd-ps-upC"/>
                                     <constraint firstAttribute="width" constant="96" id="vJB-uc-md8"/>
@@ -1293,7 +1293,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hvy-js-EBt">
-                                <rect key="frame" x="639" y="20" width="28" height="22"/>
+                                <rect key="frame" x="775" y="20" width="28" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="itM-uc-rtk"/>
                                 </constraints>
@@ -1323,19 +1323,60 @@
                                     <action selector="buildGistogram:" target="XfG-lQ-9wD" id="RAp-dy-3cY"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Boa-mH-nyj">
+                                <rect key="frame" x="809" y="52" width="96" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="SuW-8i-Dz7"/>
+                                    <constraint firstAttribute="width" constant="96" id="ieJ-Oq-0pa"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4" drawsBackground="YES" id="8il-Ek-GeH">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9i7-Ha-3Qp">
+                                <rect key="frame" x="775" y="52" width="28" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="JAa-3D-f86"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="t_i = " id="A4D-vg-hjs">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fYd-wr-UZe">
+                                <rect key="frame" x="938" y="47" width="109" height="32"/>
+                                <buttonCell key="cell" type="push" title="Calculate R" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yf0-G6-AAw">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="calculateR:" target="XfG-lQ-9wD" id="TqO-zF-SKJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="leading" secondItem="hvy-js-EBt" secondAttribute="trailing" constant="8" id="06h-We-ea7"/>
+                            <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="9i7-Ha-3Qp" secondAttribute="bottom" constant="10" id="0Yp-H4-DII"/>
                             <constraint firstItem="4lb-vJ-4pI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="2sJ-6o-y47"/>
                             <constraint firstItem="smv-RL-7iL" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="2vC-8A-9LE"/>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="centerY" secondItem="DJd-h8-oQi" secondAttribute="centerY" id="4ZZ-e6-tjk"/>
+                            <constraint firstItem="fYd-wr-UZe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Boa-mH-nyj" secondAttribute="trailing" constant="8" id="4se-1c-f30"/>
+                            <constraint firstItem="9i7-Ha-3Qp" firstAttribute="top" secondItem="Boa-mH-nyj" secondAttribute="top" id="6NG-Fs-x2H"/>
                             <constraint firstItem="hvy-js-EBt" firstAttribute="top" secondItem="IlW-cF-TpL" secondAttribute="top" id="7MK-gx-zru"/>
                             <constraint firstAttribute="trailing" secondItem="dnr-su-HAG" secondAttribute="trailing" constant="16" id="9ah-HA-4IL"/>
+                            <constraint firstItem="9i7-Ha-3Qp" firstAttribute="bottom" secondItem="Boa-mH-nyj" secondAttribute="bottom" id="Cpe-tL-dZj"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="DJd-h8-oQi" secondAttribute="top" id="Fhk-V5-9wx"/>
                             <constraint firstItem="b1e-tf-x88" firstAttribute="top" secondItem="smv-RL-7iL" secondAttribute="bottom" constant="12" id="IaS-Hs-vNA"/>
                             <constraint firstItem="smv-RL-7iL" firstAttribute="top" secondItem="dnr-su-HAG" secondAttribute="bottom" constant="16" id="Irl-Fb-JsF"/>
+                            <constraint firstItem="fYd-wr-UZe" firstAttribute="top" secondItem="dnr-su-HAG" secondAttribute="bottom" constant="15" id="JvC-oz-EHy"/>
+                            <constraint firstItem="Boa-mH-nyj" firstAttribute="leading" secondItem="9i7-Ha-3Qp" secondAttribute="trailing" constant="8" id="KrQ-DA-yTd"/>
+                            <constraint firstItem="DJd-h8-oQi" firstAttribute="top" secondItem="fYd-wr-UZe" secondAttribute="bottom" constant="12" id="MRB-Eh-kLh"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="centerY" secondItem="b1e-tf-x88" secondAttribute="centerY" id="Nop-j0-gpH"/>
                             <constraint firstItem="dnr-su-HAG" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="PsS-HL-Kf6"/>
+                            <constraint firstItem="9i7-Ha-3Qp" firstAttribute="leading" secondItem="hDj-54-vb2" secondAttribute="trailing" constant="12" id="R1I-18-BTE"/>
                             <constraint firstAttribute="bottom" secondItem="4lb-vJ-4pI" secondAttribute="bottom" constant="20" id="Tcr-MP-hzV"/>
                             <constraint firstAttribute="bottom" secondItem="b1e-tf-x88" secondAttribute="bottom" constant="20" id="XJH-gh-ztl"/>
                             <constraint firstItem="DJd-h8-oQi" firstAttribute="leading" secondItem="I9m-gJ-C0L" secondAttribute="trailing" constant="8" id="bgD-4f-9bM"/>
@@ -1348,11 +1389,14 @@
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" id="lCT-RM-Hzj"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="leading" secondItem="IlW-cF-TpL" secondAttribute="trailing" constant="8" id="lhL-43-hll"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="leading" secondItem="b1e-tf-x88" secondAttribute="trailing" constant="8" id="mBd-LM-RyR"/>
+                            <constraint firstItem="Boa-mH-nyj" firstAttribute="centerX" secondItem="IlW-cF-TpL" secondAttribute="centerX" id="mqj-Mo-80X"/>
                             <constraint firstItem="mGf-fM-VaW" firstAttribute="leading" secondItem="smv-RL-7iL" secondAttribute="trailing" constant="12" id="oYe-p1-mgD"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="top" secondItem="mGf-fM-VaW" secondAttribute="bottom" constant="12" id="pJH-7m-Rbk"/>
                             <constraint firstAttribute="trailing" secondItem="DJd-h8-oQi" secondAttribute="trailing" constant="20" id="rh8-So-C9f"/>
                             <constraint firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" constant="20" id="sWl-Ds-zV9"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="hDj-54-vb2" secondAttribute="bottom" constant="11" id="vcX-0M-v0C"/>
+                            <constraint firstItem="fYd-wr-UZe" firstAttribute="trailing" secondItem="DJd-h8-oQi" secondAttribute="trailing" id="wab-z9-JZJ"/>
+                            <constraint firstItem="DJd-h8-oQi" firstAttribute="top" secondItem="Boa-mH-nyj" secondAttribute="bottom" constant="10" id="y3a-bx-fnG"/>
                             <constraint firstItem="4lb-vJ-4pI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="yob-gt-IFn"/>
                         </constraints>
                     </view>
@@ -1365,13 +1409,14 @@
                         <outlet property="gistogramTRepresentationChart" destination="MEH-Oy-lcB" id="mv5-jY-dIh"/>
                         <outlet property="gistogramYRepresentationChart" destination="o1w-8u-TBz" id="l0J-Rt-ZKR"/>
                         <outlet property="grshTabel" destination="Ieu-cd-pkv" id="buC-BH-A5g"/>
+                        <outlet property="t_iText" destination="8il-Ek-GeH" id="rhr-fT-9pE"/>
                         <outlet property="timeSeriesRepresentationChart" destination="9Nn-Po-D08" id="qtC-tF-6Mp"/>
                         <outlet property="timeSeriesTabel" destination="V5S-le-5hZ" id="W43-81-cHZ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="297.5" y="862"/>
+            <point key="canvasLocation" x="353.5" y="862"/>
         </scene>
     </scenes>
 </document>

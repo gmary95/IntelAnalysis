@@ -11,6 +11,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var gistogramYRepresentationChart: BarChartView!
     @IBOutlet weak var dText: NSTextFieldCell!
     @IBOutlet weak var HText: NSTextFieldCell!
+    @IBOutlet weak var t_iText: NSTextFieldCell!
     @IBOutlet weak var GRShButton: NSButton!
     @IBOutlet weak var CusumButton: NSButton!
     
@@ -31,6 +32,8 @@ class ViewController: NSViewController {
     var intervals:[GistogramModel] = []
     var classTSeries: Array<VariationalSeriesClass> = []
     var classYSeries: Array<VariationalSeriesClass> = []
+    var dataZ: [[Double]] = []
+    var t_i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -272,7 +275,7 @@ class ViewController: NSViewController {
             
             createExelFile(str: str, i: "1")
             
-            let newPoint = startBSpline(data: matrix)
+            dataZ = startBSpline(data: matrix)
             
             str = createStr(matrix: newPoint)
             
@@ -285,7 +288,7 @@ class ViewController: NSViewController {
     }
     
     func startBSpline(data:[[Double]]) -> [[Double]] {
-        return SplineHelper.bSpline2D(data: data, d: tmp, multCountT: 3.0, multCountY: 3.0)
+        return SplineHelper.calcZArray(data: data, d: tmp, multCountT: tmp, multCountY: tmp)
     }
     
     func createStr(matrix: [[Double]]) -> String {
@@ -577,6 +580,18 @@ class ViewController: NSViewController {
         }
         
         return result
+    }
+    
+    @IBAction func calculateR(_ sender: Any) {
+        if dataZ.count > 0 {
+            t_i = Int(t_iText.title) ?? arrayOfSmooth.count - 1
+            if t_i > arrayOfSmooth.count - 1 {
+                t_i = arrayOfSmooth.count - 1
+            }
+            
+        } else {
+            _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with smoothing")
+        }
     }
     
     func createRandomSeries() -> [Double] {

@@ -26,21 +26,22 @@ class SplineHelper {
         }
     }
     
-    static func createU(n: Int, c: Int) -> [Double] {
-        var x = [Double](repeating: 0.0, count:  n + c + 1)
+    static func createU(count: Int, d: Int) -> [Double] {
+        var u = [Double](repeating: 0.0, count:  count + d + 1)
 
-        let nplusc = n + c
-        let nplus2 = n + 2
+        let arraySize = count + d
+        let rightLine = count + 2
+        let leftLine = d
         
-        x[1] = 0
-        for i in 2 ... nplusc {
-            if i > c && i < nplus2 {
-                x[i] = x[i - 1] + 1
+        u[1] = 0
+        for i in 2 ... arraySize {
+            if i > leftLine && i < rightLine {
+                u[i] = u[i - 1] + 1
             } else {
-                x[i] = x[i - 1]
+                u[i] = u[i - 1]
             }
         }
-        return x
+        return u
     }
     
     func createU(n: Int, d: Int, step: Double) {
@@ -110,13 +111,13 @@ class SplineHelper {
         return result
     }
     
-    static func bSpline2D(data:[[Double]], d: Int, multCountT: Double, multCountY: Double) -> [[Double]]{
+    static func calcZArray(data:[[Double]], d: Int, multCountT: Int, multCountY: Int) -> [[Double]]{
         let n = data.count
         let m = data.first!.count
-        let newCountOfT: Int = Int(ceil(Double(n) * multCountT))
-        let newCountOfY: Int = Int(ceil(Double(m) * multCountY))
-        var spline:[[Double]] = []
+        let newCountOfT: Int = n * multCountT
+        let newCountOfY: Int = m * multCountY
         
+        var spline:[[Double]] = []
         for _ in 0 ..< newCountOfT {
             spline.append([Double](repeating: 0.0, count: newCountOfY))
         }
@@ -125,28 +126,26 @@ class SplineHelper {
         let countOfV = m + d
         var nbasis: [Double] = []
         var mbasis: [Double] = []
-        var P_ik = 0.0
         
-        let U = createU(n: n, c: d)
-        let V = createU(n: m, c: d)
+        let U = createU(count: n, d: d)
+        let V = createU(count: m, d: d)
         
-        let stepu: Double = U[countOfU] / Double(newCountOfT)
-        let stepv: Double = V[countOfV] / Double(newCountOfY)
-        var t1 = 0.0
-        var t2 = 0.0
+        let stepForT: Double = U[countOfU] / Double(newCountOfT)
+        let stepForY: Double = V[countOfV] / Double(newCountOfY)
+        var dT = 0.0
+        var dY = 0.0
         
         for i in 0 ..< newCountOfT {
-            t1 += stepu
-            nbasis = calcBSpline(d: d, t: t1, pointCount: n, u: U)
-            t2 = 0.0
+            dT += stepForT
+            nbasis = calcBSpline(d: d, t: dT, pointCount: n, u: U)
+            dY = 0.0
             for j in 0 ..< newCountOfY {
-                t2 += stepv
-                mbasis = calcBSpline(d: d, t: t2, pointCount: m, u: V)
-                spline[i][j] = 0.0
-                for k1 in 0 ..< n {
-                    for k2 in 0 ..< m {
-                        P_ik = nbasis[k1] * mbasis[k2]
-                        spline[i][j] += P_ik * data[k1][k2]
+                dY += stepForY
+                mbasis = calcBSpline(d: d, t: dY, pointCount: m, u: V)
+                for k in 0 ..< n {
+                    for b in 0 ..< m {
+                        let P_kb = nbasis[k] * mbasis[b]
+                        spline[i][j] += P_kb * data[k][b]
                     }
                 }
             }
