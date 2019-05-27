@@ -285,7 +285,7 @@ class ViewController: NSViewController {
     }
     
     func startBSpline(data:[[Double]]) -> [[Double]] {
-        return SplineHelper.bSpline2D(data: data, c: tmp, divx: 1.0, divy: 1.0)
+        return SplineHelper.bSpline2D(data: data, d: tmp, multCountT: 3.0, multCountY: 3.0)
     }
     
     func createStr(matrix: [[Double]]) -> String {

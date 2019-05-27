@@ -110,43 +110,43 @@ class SplineHelper {
         return result
     }
     
-    static func bSpline2D(data:[[Double]], c: Int, divx: Double, divy: Double) -> [[Double]]{
+    static func bSpline2D(data:[[Double]], d: Int, multCountT: Double, multCountY: Double) -> [[Double]]{
         let n = data.count
         let m = data.first!.count
-        let p1: Int = Int(ceil(Double(n) * divx))//lengthx
-        let p2: Int = Int(ceil(Double(m) * divy))//length y
+        let newCountOfT: Int = Int(ceil(Double(n) * multCountT))
+        let newCountOfY: Int = Int(ceil(Double(m) * multCountY))
         var spline:[[Double]] = []
         
-        for _ in 0 ..< p1 {
-            spline.append([Double](repeating: 0.0, count: p2))
+        for _ in 0 ..< newCountOfT {
+            spline.append([Double](repeating: 0.0, count: newCountOfY))
         }
         
-        let nplusc = n + c
-        let mplusc = m + c
+        let countOfU = n + d
+        let countOfV = m + d
         var nbasis: [Double] = []
         var mbasis: [Double] = []
-        var pbasis = 0.0
+        var P_ik = 0.0
         
-        let x = createU(n: n, c: c)
-        let y = createU(n: m, c: c)
+        let U = createU(n: n, c: d)
+        let V = createU(n: m, c: d)
         
-        let stepu: Double = x[nplusc] / Double(p1)
-        let stepv: Double = y[mplusc] / Double(p2)
+        let stepu: Double = U[countOfU] / Double(newCountOfT)
+        let stepv: Double = V[countOfV] / Double(newCountOfY)
         var t1 = 0.0
         var t2 = 0.0
         
-        for i in 0 ..< p1 {
+        for i in 0 ..< newCountOfT {
             t1 += stepu
-            nbasis = bSplineBasis(c: c, t: t1, pcnt: n, knots: x)
+            nbasis = calcBSpline(d: d, t: t1, pointCount: n, u: U)
             t2 = 0.0
-            for j in 0 ..< p2 {
+            for j in 0 ..< newCountOfY {
                 t2 += stepv
-                mbasis = bSplineBasis(c: c, t: t2, pcnt: m, knots: y)
+                mbasis = calcBSpline(d: d, t: t2, pointCount: m, u: V)
                 spline[i][j] = 0.0
                 for k1 in 0 ..< n {
                     for k2 in 0 ..< m {
-                        pbasis = nbasis[k1] * mbasis[k2]
-                        spline[i][j] += pbasis * data[k1][k2]
+                        P_ik = nbasis[k1] * mbasis[k2]
+                        spline[i][j] += P_ik * data[k1][k2]
                     }
                 }
             }
@@ -154,49 +154,49 @@ class SplineHelper {
         return spline
     }
     
-    static func bSplineBasis(c: Int, t: Double, pcnt: Int, knots: [Double]) -> [Double] {
-        var nplusc: Int = 0
-        var d = 0.0
-        var e = 0.0
+    static func calcBSpline(d: Int, t: Double, pointCount: Int, u: [Double]) -> [Double] {
+        var countOfPoint: Int = 0
+        var a = 0.0
+        var b = 0.0
         
-        nplusc = pcnt + c
-        var tmp = [Double](repeating: 0.0, count: nplusc)
-        var bas = [Double](repeating: 0.0, count: pcnt)
+        countOfPoint = pointCount + d
+        var pointVector = [Double](repeating: 0.0, count: countOfPoint)
+        var basisVector = [Double](repeating: 0.0, count: pointCount)
         
-        for i in 1 ... nplusc - 1 {
-            if t >= knots[i] && t < knots[i + 1] {
-                tmp[i] = 1.0
+        for i in 1 ... countOfPoint - 1 {
+            if t >= u[i] && t < u[i + 1] {
+                pointVector[i] = 1.0
             } else {
-                tmp[i] = 0.0
+                pointVector[i] = 0.0
             }
         }
         
-        for k in 2 ... c {
-            for i in 1 ... nplusc - k {
-                if tmp[i] != 0 {
-                    d = ((t - knots[i]) * tmp[i]) / (knots[i + k - 1] - knots[i])
+        for k in 2 ... d {
+            for i in 1 ... countOfPoint - k {
+                if pointVector[i] != 0 {
+                    a = ((t - u[i]) * pointVector[i]) / (u[i + k - 1] - u[i])
                 } else {
-                    d = 0.0
+                    a = 0.0
                 }
                 
-                if  tmp[i + 1] != 0 {
-                    e = ((knots[i + k] - t) * tmp[i + 1]) / (knots[i + k] - knots[i + 1])
+                if  pointVector[i + 1] != 0 {
+                    b = ((u[i + k] - t) * pointVector[i + 1]) / (u[i + k] - u[i + 1])
                 } else {
-                    e = 0
+                    b = 0
                 }
                 
-                tmp[i] = d + e
+                pointVector[i] = a + b
             }
         }
         
-        if t == knots[nplusc] {
-            tmp[pcnt] = 1
+        if t == u[countOfPoint] {
+            pointVector[pointCount] = 1
         }
         
-        for i in 0 ..< pcnt {
-            bas[i] = tmp[i + 1]
+        for i in 0 ..< pointCount {
+            basisVector[i] = pointVector[i + 1]
         }
         
-        return bas
+        return basisVector
     }
 }
