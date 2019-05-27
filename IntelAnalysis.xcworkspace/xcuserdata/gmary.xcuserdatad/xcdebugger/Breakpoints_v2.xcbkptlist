@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.075648"
+            timestampString = "580578159.8031009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.035557"
+            timestampString = "580578159.8034739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.035833"
+            timestampString = "580578159.80352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
             endingLineNumber = "38"
-            landmarkName = "createU(n:d:step:)"
+            landmarkName = "createU(n:c:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.036039"
+            timestampString = "580578159.8035589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.0761321"
+            timestampString = "580578159.803597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.036287"
+            timestampString = "580578159.803856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
             endingLineNumber = "61"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "createU(n:d:step:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.076439"
+            timestampString = "580578159.803901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "startProccess(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,12 +154,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.036552"
+            timestampString = "580578159.8041691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "createU(n:d:step:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.036755"
+            timestampString = "580578159.804211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "createU(n:d:step:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,12 +186,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.0369461"
+            timestampString = "580578159.80425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
             endingLineNumber = "68"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "calcB(P:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.037149"
+            timestampString = "580578159.804286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -219,12 +219,12 @@
             condition = "b&gt;0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.0373369"
+            timestampString = "580578159.80432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "calcB(P:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -236,7 +236,7 @@
             condition = "b&gt;0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.0375251"
+            timestampString = "580578159.804354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -252,12 +252,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.03772"
+            timestampString = "580578159.804389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
             endingLineNumber = "74"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "calcB(P:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -268,12 +268,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.037913"
+            timestampString = "580578159.804424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
             endingLineNumber = "72"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "calcB(P:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -284,7 +284,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.038108"
+            timestampString = "580578159.804458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
@@ -300,12 +300,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.038312"
+            timestampString = "580578159.804491"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "createU(n:d:step:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -316,12 +316,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.038542"
+            timestampString = "580578159.8045239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
             endingLineNumber = "65"
-            landmarkName = "calcB(i:k:u:t:)"
+            landmarkName = "calcB(P:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -332,12 +332,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/Utils/SplineHelper.swift"
-            timestampString = "576335245.038824"
+            timestampString = "580578159.804559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
             endingLineNumber = "90"
-            landmarkName = "calcZ(t:)"
+            landmarkName = "calcB(i:k:u:t:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -348,11 +348,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.076918"
+            timestampString = "580578159.804593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
             landmarkName = "startProccess(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -364,27 +364,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.0772099"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
-            landmarkName = "startProccess(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.077489"
+            timestampString = "580578159.804849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
             endingLineNumber = "339"
+            landmarkName = "createInterval()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
+            timestampString = "580578159.805107"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "startProccess(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -396,12 +396,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.077763"
+            timestampString = "580578159.805354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
-            landmarkName = "createPointsCusum()"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
+            landmarkName = "calcGraph(array:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -428,12 +428,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.078059"
+            timestampString = "580578159.805618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
-            landmarkName = "calcGraph(array:)"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
+            landmarkName = "calcChangeZero(array:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -444,11 +444,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.078339"
+            timestampString = "580578159.805867"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
             landmarkName = "calcGraph(array:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -524,12 +524,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.078676"
+            timestampString = "580578159.806152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "createArrayGist()"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "createExelFile(str:i:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -540,12 +540,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.078963"
+            timestampString = "580578159.806408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
-            landmarkName = "buildGistogram(_:)"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "createExelFile(str:i:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -556,11 +556,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.079241"
+            timestampString = "580578159.806663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "746"
-            endingLineNumber = "746"
+            startingLineNumber = "757"
+            endingLineNumber = "757"
             landmarkName = "setBarChartData(xValues:yValues:label:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -636,12 +636,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.079571"
+            timestampString = "580578159.8069561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
-            landmarkName = "calcGraph(array:)"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "calcChangeZero(array:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -652,11 +652,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.0798481"
+            timestampString = "580578159.807212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
             landmarkName = "represent(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -668,7 +668,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.080121"
+            timestampString = "580578159.8075449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
@@ -716,7 +716,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.080402"
+            timestampString = "580578159.807838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "166"
@@ -732,7 +732,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.080664"
+            timestampString = "580578159.808087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "146"
@@ -748,12 +748,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.080927"
+            timestampString = "580578159.80836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "557"
-            endingLineNumber = "557"
-            landmarkName = "createPointsGraph(array:)"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
+            landmarkName = "createPointsZero()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -764,7 +764,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.081194"
+            timestampString = "580578159.8086179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
@@ -780,7 +780,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.081458"
+            timestampString = "580578159.8088681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
@@ -796,11 +796,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
-            timestampString = "580210654.08172"
+            timestampString = "580578159.8091151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "createExelFile(str:i:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IntelAnalysis/UserInterfase/Main/ViewController.swift"
+            timestampString = "580578159.809364"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "buildGistogram(_:)"
             landmarkType = "7">
          </BreakpointContent>

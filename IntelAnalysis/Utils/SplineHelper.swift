@@ -26,7 +26,7 @@ class SplineHelper {
         }
     }
     
-    func createU(n: Int, c: Int) -> [Double] {
+    static func createU(n: Int, c: Int) -> [Double] {
         var x = [Double](repeating: 0.0, count:  n + c + 1)
 
         let nplusc = n + c
@@ -110,12 +110,17 @@ class SplineHelper {
         return result
     }
     
-    func bSpline2D(data:[[Double]], c: Int, divx: Double, divy: Double) -> [[Double]]{
+    static func bSpline2D(data:[[Double]], c: Int, divx: Double, divy: Double) -> [[Double]]{
         let n = data.count
         let m = data.first!.count
-        let p1 = 0//lengthx
-        let p2 = 0//length y
-        var spline:[[Double]] = [Double](repeating: [Double](repeating: 0.0, count: p2), count: p1)
+        let p1: Int = Int(ceil(Double(n) * divx))//lengthx
+        let p2: Int = Int(ceil(Double(m) * divy))//length y
+        var spline:[[Double]] = []
+        
+        for _ in 0 ..< p1 {
+            spline.append([Double](repeating: 0.0, count: p2))
+        }
+        
         let nplusc = n + c
         let mplusc = m + c
         var nbasis: [Double] = []
@@ -126,7 +131,7 @@ class SplineHelper {
         let y = createU(n: m, c: c)
         
         let stepu: Double = x[nplusc] / Double(p1)
-        let stepv: Double = y[nplusc] / Double(p2)
+        let stepv: Double = y[mplusc] / Double(p2)
         var t1 = 0.0
         var t2 = 0.0
         
@@ -149,7 +154,7 @@ class SplineHelper {
         return spline
     }
     
-    func bSplineBasis(c: Int, t: Double, pcnt: Int, knots: [Double]) -> [Double] {
+    static func bSplineBasis(c: Int, t: Double, pcnt: Int, knots: [Double]) -> [Double] {
         var nplusc: Int = 0
         var d = 0.0
         var e = 0.0

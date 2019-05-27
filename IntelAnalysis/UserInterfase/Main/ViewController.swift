@@ -258,41 +258,59 @@ class ViewController: NSViewController {
             }
             
             var  classes: [SeriesClass] = []
-            var matrix:[[Int]] = []
+            var matrix:[[Double]] = []
             for i in 0 ..< classTSeries.count {
-                var tmp: [Int] = []
+                var tmp: [Double] = []
                 for j in 0 ..< classYSeries.count {
                     classes.append(classSeries.getClasses(dT: (classTSeries[i].min, classTSeries[i].max), dY: (classYSeries[j].min, classYSeries[j].max)))
-                    tmp.append((classes.last?.frequency)!)
+                    tmp.append(Double((classes.last?.frequency)!))
                 }
                 matrix.append(tmp)
             }
             
-            var str = ""
+            var str = createStr(matrix: matrix)
             
-            for i in 0 ..< matrix.count {
-                for j in 0 ..< matrix[0].count {
-                    str += "\(matrix[i][j]),"
-                }
-                str += "\n"
-            }
+            createExelFile(str: str, i: "1")
             
-            let file = "file.txt" //this is the file. we will write to and read from it
+            let newPoint = startBSpline(data: matrix)
             
+            str = createStr(matrix: newPoint)
             
-            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                
-                let fileURL = dir.appendingPathComponent(file)
-                //writing
-                do {
-                    try str.write(to: fileURL, atomically: false, encoding: .utf8)
-                }
-                catch {/* error handling here */}
-            }
+            createExelFile(str: str, i: "2")
             
             print(str)
         } else {
              _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
+        }
+    }
+    
+    func startBSpline(data:[[Double]]) -> [[Double]] {
+        return SplineHelper.bSpline2D(data: data, c: tmp, divx: 1.0, divy: 1.0)
+    }
+    
+    func createStr(matrix: [[Double]]) -> String {
+        var str = ""
+        
+        for i in 0 ..< matrix.count {
+            for j in 0 ..< matrix[0].count {
+                str += "\(matrix[i][j]),"
+            }
+            str += "\n"
+        }
+        return str
+    }
+    
+    func createExelFile(str: String, i: String) {
+        let file = "exelFile\(i).csv"
+        
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            do {
+                try str.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {print("error")}
         }
     }
     
