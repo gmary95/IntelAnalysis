@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -619,7 +619,7 @@
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
@@ -1171,11 +1171,11 @@
                                 <tabViewItems>
                                     <tabViewItem label="Chart" identifier="" id="wvi-sl-c7Q">
                                         <view key="view" id="q6a-xX-CYV">
-                                            <rect key="frame" x="10" y="33" width="519" height="548"/>
+                                            <rect key="frame" x="10" y="33" width="655" height="548"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Nn-Po-D08" customClass="LineChartView" customModule="Charts">
-                                                    <rect key="frame" x="0.0" y="0.0" width="519" height="548"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="655" height="548"/>
                                                 </customView>
                                             </subviews>
                                             <constraints>
@@ -1216,6 +1216,23 @@
                                                 <constraint firstItem="D0Q-NC-cY4" firstAttribute="leading" secondItem="m9Q-jM-ptC" secondAttribute="leading" id="BP7-9N-XwP"/>
                                                 <constraint firstAttribute="trailing" secondItem="D0Q-NC-cY4" secondAttribute="trailing" id="lVW-VW-MCb"/>
                                                 <constraint firstAttribute="bottom" secondItem="D0Q-NC-cY4" secondAttribute="bottom" id="p3O-5Q-3M5"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="R" identifier="" id="73u-bf-Izr">
+                                        <view key="view" id="lca-Qk-LVT">
+                                            <rect key="frame" x="10" y="33" width="655" height="548"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MHQ-K5-3Cp" customClass="LineChartView" customModule="Charts">
+                                                    <rect key="frame" x="0.0" y="0.0" width="655" height="548"/>
+                                                </customView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MHQ-K5-3Cp" firstAttribute="top" secondItem="lca-Qk-LVT" secondAttribute="top" id="780-GW-1r8"/>
+                                                <constraint firstAttribute="trailing" secondItem="MHQ-K5-3Cp" secondAttribute="trailing" id="F57-g5-UKt"/>
+                                                <constraint firstItem="MHQ-K5-3Cp" firstAttribute="leading" secondItem="lca-Qk-LVT" secondAttribute="leading" id="Lt7-DK-Zav"/>
+                                                <constraint firstAttribute="bottom" secondItem="MHQ-K5-3Cp" secondAttribute="bottom" id="mP3-ey-XVL"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -1356,8 +1373,32 @@
                                     <action selector="calculateR:" target="XfG-lQ-9wD" id="TqO-zF-SKJ"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Oc-HX-ork">
+                                <rect key="frame" x="673" y="20" width="96" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="ZrC-zv-MqV"/>
+                                    <constraint firstAttribute="height" constant="22" id="xug-Ay-emL"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="10" drawsBackground="YES" id="M20-IL-qqR">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qf6-Vj-JVW">
+                                <rect key="frame" x="639" y="20" width="28" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="qD9-B6-JSL"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="n = " id="VXa-AO-QuJ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Qf6-Vj-JVW" firstAttribute="top" secondItem="2Oc-HX-ork" secondAttribute="top" id="00a-MW-n42"/>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="leading" secondItem="hvy-js-EBt" secondAttribute="trailing" constant="8" id="06h-We-ea7"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="9i7-Ha-3Qp" secondAttribute="bottom" constant="10" id="0Yp-H4-DII"/>
                             <constraint firstItem="4lb-vJ-4pI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="2sJ-6o-y47"/>
@@ -1379,19 +1420,24 @@
                             <constraint firstItem="9i7-Ha-3Qp" firstAttribute="leading" secondItem="hDj-54-vb2" secondAttribute="trailing" constant="12" id="R1I-18-BTE"/>
                             <constraint firstAttribute="bottom" secondItem="4lb-vJ-4pI" secondAttribute="bottom" constant="20" id="Tcr-MP-hzV"/>
                             <constraint firstAttribute="bottom" secondItem="b1e-tf-x88" secondAttribute="bottom" constant="20" id="XJH-gh-ztl"/>
+                            <constraint firstItem="2Oc-HX-ork" firstAttribute="centerY" secondItem="IlW-cF-TpL" secondAttribute="centerY" id="YQX-sO-YS7"/>
                             <constraint firstItem="DJd-h8-oQi" firstAttribute="leading" secondItem="I9m-gJ-C0L" secondAttribute="trailing" constant="8" id="bgD-4f-9bM"/>
+                            <constraint firstItem="Qf6-Vj-JVW" firstAttribute="leading" secondItem="lBB-Gi-1Lg" secondAttribute="trailing" constant="8" id="dUi-En-X8u"/>
                             <constraint firstItem="hvy-js-EBt" firstAttribute="bottom" secondItem="IlW-cF-TpL" secondAttribute="bottom" id="fUA-GL-fhE"/>
                             <constraint firstItem="dnr-su-HAG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="fX7-72-RJH"/>
+                            <constraint firstItem="2Oc-HX-ork" firstAttribute="leading" secondItem="Qf6-Vj-JVW" secondAttribute="trailing" constant="8" id="g0p-0r-WII"/>
                             <constraint firstItem="hDj-54-vb2" firstAttribute="leading" secondItem="mGf-fM-VaW" secondAttribute="trailing" constant="8" id="gHy-We-aKA"/>
                             <constraint firstItem="IlW-cF-TpL" firstAttribute="leading" secondItem="hvy-js-EBt" secondAttribute="trailing" constant="8" id="gTb-ID-se3"/>
                             <constraint firstItem="hvy-js-EBt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lBB-Gi-1Lg" secondAttribute="trailing" constant="8" id="guX-Mu-Djm"/>
                             <constraint firstItem="b1e-tf-x88" firstAttribute="leading" secondItem="4lb-vJ-4pI" secondAttribute="trailing" constant="8" id="iJy-eY-TSI"/>
+                            <constraint firstItem="Qf6-Vj-JVW" firstAttribute="bottom" secondItem="2Oc-HX-ork" secondAttribute="bottom" id="iPR-s1-MGm"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" id="lCT-RM-Hzj"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="leading" secondItem="IlW-cF-TpL" secondAttribute="trailing" constant="8" id="lhL-43-hll"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="leading" secondItem="b1e-tf-x88" secondAttribute="trailing" constant="8" id="mBd-LM-RyR"/>
                             <constraint firstItem="Boa-mH-nyj" firstAttribute="centerX" secondItem="IlW-cF-TpL" secondAttribute="centerX" id="mqj-Mo-80X"/>
                             <constraint firstItem="mGf-fM-VaW" firstAttribute="leading" secondItem="smv-RL-7iL" secondAttribute="trailing" constant="12" id="oYe-p1-mgD"/>
                             <constraint firstItem="lBB-Gi-1Lg" firstAttribute="top" secondItem="mGf-fM-VaW" secondAttribute="bottom" constant="12" id="pJH-7m-Rbk"/>
+                            <constraint firstItem="hvy-js-EBt" firstAttribute="leading" secondItem="2Oc-HX-ork" secondAttribute="trailing" constant="8" id="q5R-j0-uff"/>
                             <constraint firstAttribute="trailing" secondItem="DJd-h8-oQi" secondAttribute="trailing" constant="20" id="rh8-So-C9f"/>
                             <constraint firstAttribute="bottom" secondItem="DJd-h8-oQi" secondAttribute="bottom" constant="20" id="sWl-Ds-zV9"/>
                             <constraint firstItem="I9m-gJ-C0L" firstAttribute="top" secondItem="hDj-54-vb2" secondAttribute="bottom" constant="11" id="vcX-0M-v0C"/>
@@ -1404,11 +1450,13 @@
                         <outlet property="CusumButton" destination="smv-RL-7iL" id="Qv3-ug-KTQ"/>
                         <outlet property="GRShButton" destination="mGf-fM-VaW" id="fQQ-zt-1bZ"/>
                         <outlet property="HText" destination="2BO-I2-shX" id="dxd-QK-xMz"/>
+                        <outlet property="RSeriesRepresentationChart" destination="MHQ-K5-3Cp" id="Zo1-M8-M9T"/>
                         <outlet property="cusumTabel" destination="gA2-kZ-WP6" id="JzP-fb-h1m"/>
                         <outlet property="dText" destination="ghD-uY-YLh" id="Vrt-J3-Nno"/>
                         <outlet property="gistogramTRepresentationChart" destination="MEH-Oy-lcB" id="mv5-jY-dIh"/>
                         <outlet property="gistogramYRepresentationChart" destination="o1w-8u-TBz" id="l0J-Rt-ZKR"/>
                         <outlet property="grshTabel" destination="Ieu-cd-pkv" id="buC-BH-A5g"/>
+                        <outlet property="nText" destination="M20-IL-qqR" id="cAC-TC-Mpb"/>
                         <outlet property="t_iText" destination="8il-Ek-GeH" id="rhr-fT-9pE"/>
                         <outlet property="timeSeriesRepresentationChart" destination="9Nn-Po-D08" id="qtC-tF-6Mp"/>
                         <outlet property="timeSeriesTabel" destination="V5S-le-5hZ" id="W43-81-cHZ"/>

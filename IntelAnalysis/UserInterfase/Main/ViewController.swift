@@ -7,10 +7,12 @@ class ViewController: NSViewController {
     @IBOutlet weak var cusumTabel: NSTableView!
     @IBOutlet weak var grshTabel: NSTableView!
     @IBOutlet weak var timeSeriesRepresentationChart: LineChartView!
+    @IBOutlet weak var RSeriesRepresentationChart: LineChartView!
     @IBOutlet weak var gistogramTRepresentationChart: BarChartView!
     @IBOutlet weak var gistogramYRepresentationChart: BarChartView!
     @IBOutlet weak var dText: NSTextFieldCell!
     @IBOutlet weak var HText: NSTextFieldCell!
+    @IBOutlet weak var nText: NSTextFieldCell!
     @IBOutlet weak var t_iText: NSTextFieldCell!
     @IBOutlet weak var GRShButton: NSButton!
     @IBOutlet weak var CusumButton: NSButton!
@@ -34,10 +36,12 @@ class ViewController: NSViewController {
     var classYSeries: Array<VariationalSeriesClass> = []
     var dataZ: [[Double]] = []
     var t_i = 0
+    var RArray:[Double] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.timeSeriesRepresentationChart.noDataTextColor = .white
+        self.RSeriesRepresentationChart.noDataTextColor = .white
     }
     
     @IBAction func openFile(_ sender: NSMenuItem) {
@@ -90,7 +94,7 @@ class ViewController: NSViewController {
             
             timeSeriesTabel.reloadData()
             
-        representChart(timeSeries: arrayOfTimeSeries, regresion: nil, chart: timeSeriesRepresentationChart)
+            representChart(timeSeries: arrayOfTimeSeries, regresion: nil, chart: timeSeriesRepresentationChart)
             
         } catch {
             _ = AlertHelper().dialogCancel(question: "Sopmething went wrong!", text: "You choose incorect file or choose noone.")
@@ -163,7 +167,7 @@ class ViewController: NSViewController {
         chart.rightAxis.labelTextColor = .white
     }
     
-    func representTransformChart(timeSeries: Array<Double>, points: Array<ChartDataEntry>?, regresion: Array<ChartDataEntry>?, chart: LineChartView){
+    func representTransformChart(timeSeries: Array<Double>, points: Array<ChartDataEntry>, regresion: Array<ChartDataEntry>?, chart: LineChartView){
         let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         
         let data = LineChartData()
@@ -173,13 +177,13 @@ class ViewController: NSViewController {
         dataSet.drawCirclesEnabled = false
         data.addDataSet(dataSet)
         
-        if let pointsSet = points {
-            let dataPointsSet = LineChartDataSet(values: pointsSet, label: "Points")
-            dataPointsSet.colors = [NSUIColor.clear]
-            dataPointsSet.valueColors = [NSUIColor.red]
-            dataPointsSet.circleColors = [NSUIColor.red]
-            data.addDataSet(dataPointsSet)
-        }
+        let pointsSet = points
+        let dataPointsSet = LineChartDataSet(values: pointsSet, label: "Points")
+        dataPointsSet.colors = [NSUIColor.clear]
+        dataPointsSet.valueColors = [NSUIColor.red]
+        dataPointsSet.circleColors = [NSUIColor.red]
+        data.addDataSet(dataPointsSet)
+        
         
         if let reg = regresion {
             let dataSetRegresion = LineChartDataSet(values: reg, label: "")
@@ -219,7 +223,7 @@ class ViewController: NSViewController {
             classTSeries = splitSeries(series: variationTSeries)
             
             let selectionY = Selection(order: 1, capacity: 0)
-             selectionY.append(item: resultArray[0].y - arrayOfSmooth[0])
+            selectionY.append(item: resultArray[0].y - arrayOfSmooth[0])
             for i in 0 ..< resultArray.count - 1 {
                 selectionY.append(item: resultArray[i + 1].y - resultArray[i].y)
             }
@@ -277,13 +281,13 @@ class ViewController: NSViewController {
             
             dataZ = startBSpline(data: matrix)
             
-            str = createStr(matrix: newPoint)
+            str = createStr(matrix: dataZ)
             
             createExelFile(str: str, i: "2")
             
             print(str)
         } else {
-             _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
+            _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with detection")
         }
     }
     
@@ -391,7 +395,7 @@ class ViewController: NSViewController {
             kArray = createKArray()
             calcCUSUM(array: kArray)
             
-//            kArray = createZArray()
+            //            kArray = createZArray()
             calcGraph(array: arrayOfSmooth)
             CusumButton.isHidden = false
             GRShButton.isHidden = false
@@ -443,7 +447,7 @@ class ViewController: NSViewController {
             arrayOfCusum1.append(0.0)
             arrayOfCusum2.append(0.0)
         }
-
+        
         var S1 = 0.0
         var S2 = 0.0
         for i in arrayCount ..< array.count - 1 {
@@ -532,7 +536,7 @@ class ViewController: NSViewController {
         resultArray = resultArray.sorted {
             $0.x < $1.x
         }
-
+        
         
         grshTabel.reloadData()
     }
@@ -576,7 +580,7 @@ class ViewController: NSViewController {
     func createPointsGraph(array: [Point]) -> [ChartDataEntry] {
         var result: [ChartDataEntry] = []
         for elem in array {
-                result.append(ChartDataEntry(x: Double(elem.x - 1.0), y: elem.y))
+            result.append(ChartDataEntry(x: Double(elem.x - 1.0), y: elem.y))
         }
         
         return result
@@ -584,23 +588,72 @@ class ViewController: NSViewController {
     
     @IBAction func calculateR(_ sender: Any) {
         if dataZ.count > 0 {
+            RArray = []
             t_i = Int(t_iText.title) ?? arrayOfSmooth.count - 1
             if t_i > arrayOfSmooth.count - 1 {
                 t_i = arrayOfSmooth.count - 1
             }
+            let currentPoint = findRozBefore(t: Double(t_i))
+            let point_i = Point(x: Double(t_i), y: arrayOfSmooth[t_i])
+            let tc_ij: Double = point_i.x - currentPoint.x
+            let Y_c = point_i.y - currentPoint.y
             
+            let n = 10 // inpun keyboard
+            let dy = (arrayOfSmooth.last! - Y_c) / Double(n)
+            for i in 1 ... n {
+                //create y array
+                var y: [Double] = []
+                for _ in _ {
+                    
+                }
+                
+                //create y_cp array
+                var y_cp: [Double] = []
+                for _ in _ {
+                    
+                }
+                
+                //create x array
+                var x: [Double] = []
+                for _ in _ {
+                    
+                }
+                
+                //create f array
+                var f: [[Double]] = []
+                for _ in _ {
+                    
+                }
+                
+                let Y_cp = Y_c + Double(i) * dy
+                RArray.append(RHelper.R_ycp(x: x, y_cp: y_cp, y: y, Y_c: Y_c, Y_cp: Y_cp, f: f))
+            }
+            
+            self.representTransformChart(timeSeries: RArray, points: nil, regresion: nil, chart: RSeriesRepresentationChart)
         } else {
             _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with smoothing")
         }
+    }
+    
+    func findRozBefore(t: Double) -> Point {
+        var result = resultArray[0]
+        for elem in resultArray {
+            if elem.x < t {
+                result = elem
+            } else {
+                break
+            }
+        }
+        return result
     }
     
     func createRandomSeries() -> [Double] {
         var result: [Double] = []
         let count = 50
         var m = 3.0
-            for _ in 0...count {
-                result.append(m + Double.random(in: 0...1))
-            }
+        for _ in 0...count {
+            result.append(m + Double.random(in: 0...1))
+        }
         
         m = 25.0
         for _ in 0...count {
@@ -613,7 +666,7 @@ class ViewController: NSViewController {
         }
         return result
     }
-
+    
 }
 
 extension ViewController: NSTableViewDataSource {
