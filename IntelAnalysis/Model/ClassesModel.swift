@@ -21,7 +21,7 @@ class ClassesModel {
     
     public func getClasses(dT: (Double, Double), dY: (Double, Double)) -> SeriesClass {
         let fr = getCount(dT: dT, dY: dY)
-        return SeriesClass(dT: DiffClass(min: dT.0, max: dT.1), dY: DiffClass(min: dY.0, max: dY.1), fr: fr)
+        return SeriesClass(dT: DiffClass(min: dT.0, max: dT.1), dY: DiffClass(min: dY.0, max: dY.1), fr: Double(fr))
     }
 }
 
@@ -40,10 +40,10 @@ public class DiffClass {
 public class SeriesClass {
     public var dT: DiffClass
     public var dY: DiffClass
-    public var frequency: Int
+    public var frequency: Double
     
     
-    public init(dT: DiffClass, dY: DiffClass, fr: Int) {
+    public init(dT: DiffClass, dY: DiffClass, fr: Double) {
         self.dT = dT
         self.dY = dY
         self.frequency = fr

@@ -37,6 +37,7 @@ class ViewController: NSViewController {
     var dataZ: [[Double]] = []
     var t_i = 0
     var RArray:[Double] = []
+    var Zclasses: [[SeriesClass]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,6 +168,7 @@ class ViewController: NSViewController {
         chart.rightAxis.labelTextColor = .white
     }
     
+    
     func representTransformChart(timeSeries: Array<Double>, points: Array<ChartDataEntry>, regresion: Array<ChartDataEntry>?, chart: LineChartView){
         let series = timeSeries.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         
@@ -278,8 +280,29 @@ class ViewController: NSViewController {
             var str = createStr(matrix: matrix)
             
             createExelFile(str: str, i: "1")
+            let multCountT = tmp
+            let multCountY = tmp
             
             dataZ = startBSpline(data: matrix)
+            
+            Zclasses = []
+            let newCountOfT: Int = classTSeries.count * multCountT
+            let newCountOfY: Int = classYSeries.count * multCountY
+            let stepForT: Double = classTSeries.last!.max / Double(newCountOfT)
+            let stepForY: Double = classYSeries.last!.max / Double(newCountOfY)
+            var dT = 0.0
+            var dY = 0.0
+            
+            for i in 0 ..< newCountOfT {
+                var tmp: [SeriesClass] = []
+                dY = 0.0
+                for j in 0 ..< newCountOfY {
+                    tmp.append(SeriesClass(dT: DiffClass(min: dT, max: dT + stepForT), dY: DiffClass(min: dY, max: dY + stepForY), fr: dataZ[i][j]))
+                    dY += stepForY
+                }
+                Zclasses.append(tmp)
+                dT += stepForT
+            }
             
             str = createStr(matrix: dataZ)
             
@@ -533,6 +556,8 @@ class ViewController: NSViewController {
         
         graphManager.calcD(points: points, bar: eps, result: &resultArray)
         
+        resultArray.append(Point(x: 1, y: arrayOfSmooth.first!))
+        
         resultArray = resultArray.sorted {
             $0.x < $1.x
         }
@@ -598,37 +623,13 @@ class ViewController: NSViewController {
             let tc_ij: Double = point_i.x - currentPoint.x
             let Y_c = point_i.y - currentPoint.y
             
-            let n = 10 // inpun keyboard
-            let dy = (arrayOfSmooth.last! - Y_c) / Double(n)
+            let n = Int(nText.title) ?? 5
+            let dy = (Zclasses.last!.last!.dY.max - Y_c) / Double(n)
             for i in 1 ... n {
-                //create y array
-                var y: [Double] = []
-                for _ in _ {
-                    
-                }
-                
-                //create y_cp array
-                var y_cp: [Double] = []
-                for _ in _ {
-                    
-                }
-                
-                //create x array
-                var x: [Double] = []
-                for _ in _ {
-                    
-                }
-                
-                //create f array
-                var f: [[Double]] = []
-                for _ in _ {
-                    
-                }
-                
                 let Y_cp = Y_c + Double(i) * dy
-                RArray.append(RHelper.R_ycp(x: x, y_cp: y_cp, y: y, Y_c: Y_c, Y_cp: Y_cp, f: f))
+                RArray.append(RHelper.R_ycp(data: Zclasses, t_ij: tc_ij, Y_c: Y_c, Y_cp: Y_cp))
             }
-            
+
             self.representTransformChart(timeSeries: RArray, points: nil, regresion: nil, chart: RSeriesRepresentationChart)
         } else {
             _ = AlertHelper().dialogCancel(question: "Error", text: "You need to start with smoothing")
@@ -725,7 +726,7 @@ extension ViewController: NSTableViewDelegate {
             var cellIdentifier: String = ""
             
             if tableColumn == tableView.tableColumns[0] {
-                text = "\(arrayOfName[row])"
+                text = "\(row + 1)"
                 cellIdentifier = CellIdentifiersSelectionTable.IndexCell
             } else if tableColumn == tableView.tableColumns[1] {
                 text = "\(arrayOfTimeSeries[row].rounded(toPlaces: 6))"
